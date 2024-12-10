@@ -4,15 +4,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Home from './src/screens/Home';
-import PostCard from './src/components/PostCard';
+import Explore from './src/screens/Explore';
 
 const Tab = createBottomTabNavigator();
 
 function App(): React.JSX.Element {
-  const postCardProps = {
-    userName: 'bye there',
-    logoImage: 'https://reactjs.org/logo-og.png',
-  };
   return (
     <SafeAreaView style={styles.app__mainContainer}>
       <NavigationContainer>
@@ -26,10 +22,8 @@ function App(): React.JSX.Element {
             children={({navigation}) => <Home navigation={navigation} />}
           />
           <Tab.Screen
-            name="Settings"
-            children={({navigation}) => (
-              <PostCard navigation={navigation} postCardProps={postCardProps} />
-            )}
+            name="Explore"
+            children={({navigation}) => <Explore navigation={navigation} />}
           />
         </Tab.Navigator>
       </NavigationContainer>

@@ -6,10 +6,9 @@ import Icons from 'react-native-vector-icons/Entypo';
 
 import {NavigationProp} from '@react-navigation/native';
 
-type PostCardProps = PropsWithChildren<{
+type PostCardPropType = PropsWithChildren<{
   userName: string;
   logoImage: string;
-  key?: string;
 }>;
 
 const PostCard = ({
@@ -17,7 +16,7 @@ const PostCard = ({
   postCardProps,
 }: {
   navigation: NavigationProp<any>;
-  postCardProps: PostCardProps;
+  postCardProps: PostCardPropType;
 }) => {
   return (
     <SafeAreaView>
@@ -30,7 +29,7 @@ const PostCard = ({
             />
             <Text
               style={styles.postCard__userName}
-              onPress={() => navigation.navigate('Settings')}>
+              onPress={() => navigation.navigate('Explore')}>
               {postCardProps.userName}
             </Text>
           </View>
