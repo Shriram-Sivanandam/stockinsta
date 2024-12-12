@@ -1,9 +1,7 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 
-import {StyleSheet, Text, View, Pressable} from 'react-native';
-
-import {NavigationProp} from '@react-navigation/native';
+import {StyleSheet, Text, View} from 'react-native';
 
 type StockCardPropType = PropsWithChildren<{
   stockName: string;
@@ -14,17 +12,9 @@ type StockCardPropType = PropsWithChildren<{
   stockChangePercent: string;
 }>;
 
-const StockCard = ({
-  navigation,
-  stockCardProps,
-}: {
-  navigation: NavigationProp<any>;
-  stockCardProps: StockCardPropType;
-}) => {
+const StockCard = ({stockCardProps}: {stockCardProps: StockCardPropType}) => {
   return (
-    <Pressable
-      style={styles.stockCard__mainCont}
-      onPress={() => navigation.navigate('Home')}>
+    <View style={styles.stockCard__mainCont}>
       <View>
         <Text style={styles.stockCard__stockName}>
           {stockCardProps.stockName}
@@ -41,7 +31,7 @@ const StockCard = ({
           {stockCardProps.stockChange} ({stockCardProps.stockChangePercent})
         </Text>
       </View>
-    </Pressable>
+    </View>
   );
 };
 
