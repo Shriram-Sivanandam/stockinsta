@@ -2,6 +2,7 @@ import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import IconsSimple from 'react-native-vector-icons/SimpleLineIcons';
 import IconsEntypo from 'react-native-vector-icons/Entypo';
@@ -9,6 +10,7 @@ import IconsIon from 'react-native-vector-icons/Ionicons';
 
 import Home from './src/screens/Home';
 import Explore from './src/screens/Explore';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,32 +30,36 @@ const ExploreTabBarIcon = (focused: boolean) =>
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView style={styles.app__mainContainer}>
-      <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            headerShown: false,
-            tabBarStyle: styles.app__tabBar,
-            tabBarLabelStyle: styles.app__labelStyle,
-            tabBarShowLabel: false,
-          }}>
-          <Tab.Screen
-            name="Home"
-            children={({navigation}) => <Home navigation={navigation} />}
-            options={{
-              tabBarIcon: tabInfo => HomeTabBarIcon(tabInfo.focused),
-            }}
-          />
-          <Tab.Screen
-            name="Explore"
-            children={({navigation}) => <Explore navigation={navigation} />}
-            options={{
-              tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <BottomSheetModalProvider>
+        <SafeAreaView style={styles.app__mainContainer}>
+          <NavigationContainer>
+            <Tab.Navigator
+              screenOptions={{
+                headerShown: false,
+                tabBarStyle: styles.app__tabBar,
+                tabBarLabelStyle: styles.app__labelStyle,
+                tabBarShowLabel: false,
+              }}>
+              <Tab.Screen
+                name="Home"
+                children={({navigation}) => <Home navigation={navigation} />}
+                options={{
+                  tabBarIcon: tabInfo => HomeTabBarIcon(tabInfo.focused),
+                }}
+              />
+              <Tab.Screen
+                name="Explore"
+                component={Explore}
+                options={{
+                  tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
+                }}
+              />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </SafeAreaView>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }
 
