@@ -36,7 +36,7 @@ const CustomBottomSheet = forwardRef<Ref, Props>((props, ref) => {
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
       backgroundStyle={{backgroundColor: '#000'}}
-      handleIndicatorStyle={{backgroundColor: '#fff'}}>
+      handleIndicatorStyle={{backgroundColor: '#4b4c4d'}}>
       <BottomSheetScrollView>
         <View>
           <Text style={{color: '#fff'}}>Awesome 🎉</Text>

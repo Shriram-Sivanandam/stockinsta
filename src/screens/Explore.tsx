@@ -1,20 +1,10 @@
-import React, {Fragment, useRef} from 'react';
+import React, {Fragment} from 'react';
 
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
-
-import {StyleSheet, ScrollView, Pressable, View} from 'react-native';
+import {StyleSheet, ScrollView, View} from 'react-native';
 
 import StockCard from '../components/StockCard';
-import CustomBottomSheet from '../components/CustomBottomSheet';
 
 const Explore = () => {
-  const bottomSheetRef = useRef<BottomSheetModal>(null);
-
-  //   const snapToIndex = (index: number) =>
-  //     bottomSheetRef.current?.snapToIndex(index);
-
-  const handlePresentModalPress = () => bottomSheetRef.current?.present();
-
   const stockcardarr = [
     {
       stockName: 'AAPL',
@@ -66,17 +56,13 @@ const Explore = () => {
         {stockcardarr.map((stockCard, i) => {
           return (
             <Fragment key={i}>
-              <Pressable
-                style={styles.explore__cardCont}
-                onPress={handlePresentModalPress}>
+              <View style={styles.explore__cardCont}>
                 <StockCard stockCardProps={stockCard} />
-              </Pressable>
+              </View>
             </Fragment>
           );
         })}
       </ScrollView>
-
-      <CustomBottomSheet title="Helloooo!!!!!" ref={bottomSheetRef} />
     </View>
   );
 };
@@ -93,12 +79,12 @@ const styles = StyleSheet.create({
     borderColor: '#4b4c4d',
   },
   container: {
-    // flex: 1,
-    // backgroundColor: 'grey',
+    flex: 1,
+    backgroundColor: 'grey',
   },
   contentContainer: {
-    // flex: 1,
-    // padding: 36,
-    // alignItems: 'center',
+    flex: 1,
+    padding: 36,
+    alignItems: 'center',
   },
 });

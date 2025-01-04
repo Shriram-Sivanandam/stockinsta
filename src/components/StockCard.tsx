@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {Fragment, useRef} from 'react';
 import type {PropsWithChildren} from 'react';
 
-import {StyleSheet, Text, View} from 'react-native';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import CustomBottomSheet from '../components/CustomBottomSheet';
 
 type StockCardPropType = PropsWithChildren<{
   stockName: string;
@@ -13,25 +16,36 @@ type StockCardPropType = PropsWithChildren<{
 }>;
 
 const StockCard = ({stockCardProps}: {stockCardProps: StockCardPropType}) => {
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+  const handlePresentModalPress = () => bottomSheetRef.current?.present();
   return (
-    <View style={styles.stockCard__mainCont}>
-      <View>
-        <Text style={styles.stockCard__stockName}>
-          {stockCardProps.stockName}
-        </Text>
-        <Text style={styles.stockCard__stockCompany}>
-          {stockCardProps.stockCompany}
-        </Text>
-      </View>
-      <View style={styles.stockCard__rightCont}>
-        <Text style={styles.stockCard__stockPrice}>
-          {stockCardProps.stockPrice}
-        </Text>
-        <Text style={styles.stockCard__stockChangePos}>
-          {stockCardProps.stockChange} ({stockCardProps.stockChangePercent})
-        </Text>
-      </View>
-    </View>
+    <Fragment>
+      <Pressable
+        style={styles.stockCard__mainCont}
+        onPress={handlePresentModalPress}>
+        <View>
+          <Text style={styles.stockCard__stockName}>
+            {stockCardProps.stockName}
+          </Text>
+          <Text style={styles.stockCard__stockCompany}>
+            {stockCardProps.stockCompany}
+          </Text>
+        </View>
+        <View style={styles.stockCard__rightCont}>
+          <Text style={styles.stockCard__stockPrice}>
+            {stockCardProps.stockPrice}
+          </Text>
+          <Text style={styles.stockCard__stockChangePos}>
+            {stockCardProps.stockChange} ({stockCardProps.stockChangePercent})
+          </Text>
+        </View>
+      </Pressable>
+      <CustomBottomSheet
+        title={stockCardProps.stockName}
+        ref={bottomSheetRef}
+      />
+    </Fragment>
   );
 };
 
