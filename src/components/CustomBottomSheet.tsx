@@ -1,5 +1,6 @@
 import React, {forwardRef, useMemo, useCallback} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
+import OHLCBar from './OHLCBar';
 
 import {
   BottomSheetModal,
@@ -38,15 +39,10 @@ const CustomBottomSheet = forwardRef<Ref, Props>((props, ref) => {
       backgroundStyle={{backgroundColor: '#000'}}
       handleIndicatorStyle={{backgroundColor: '#4b4c4d'}}>
       <BottomSheetScrollView>
-        <View>
-          <Text style={{color: '#fff'}}>Awesome 🎉</Text>
-          <Text style={{color: '#fff'}}>{props.title}</Text>
-          <Text style={{color: '#fff'}}>Awesome 🎉</Text>
-          <Text style={{color: '#fff'}}>{props.title}</Text>
-          <Text style={{color: '#fff'}}>Awesome 🎉</Text>
-          <Text style={{color: '#fff'}}>{props.title}</Text>
-          <Text style={{color: '#fff'}}>Awesome 🎉</Text>
-          <Text style={{color: '#fff'}}>{props.title}</Text>
+        <View style={styles.customBottomSheet__mainCont}>
+          <Text style={{color: '#fff'}}>ONGC</Text>
+          <Text style={{color: '#fff'}}>NSE 4036.45 +15.44(+3.43%)</Text>
+          <OHLCBar />
         </View>
       </BottomSheetScrollView>
     </BottomSheetModal>
@@ -54,3 +50,10 @@ const CustomBottomSheet = forwardRef<Ref, Props>((props, ref) => {
 });
 
 export default CustomBottomSheet;
+
+const styles = StyleSheet.create({
+  customBottomSheet__mainCont: {
+    width: '90%',
+    alignSelf: 'center',
+  },
+});
