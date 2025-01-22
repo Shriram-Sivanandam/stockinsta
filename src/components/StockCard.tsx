@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   stockCard__stockChangeNeg: {
-    color: '#37a329',
+    color: '#ff0000',
     fontSize: 14,
   },
 });
