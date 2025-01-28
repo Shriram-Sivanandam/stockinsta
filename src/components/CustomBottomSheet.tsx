@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   customBottomSheet__stockName: {
     color: '#fff',
     fontSize: 20,
+    fontFamily: 'Poppins Regular',
   },
   customBottomSheet__subTitle: {
     color: '#fff',

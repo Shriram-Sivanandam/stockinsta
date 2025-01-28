@@ -63,11 +63,13 @@ const styles = StyleSheet.create({
   },
   stockCard__stockName: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 16,
+    fontFamily: 'Poppins Regular',
   },
   stockCard__stockCompany: {
     color: '#4b4c4d',
-    fontSize: 14,
+    fontSize: 15,
+    fontFamily: 'Poppins Light',
   },
   stockCard__rightCont: {
     display: 'flex',
