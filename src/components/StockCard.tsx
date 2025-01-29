@@ -5,6 +5,7 @@ import {BottomSheetModal} from '@gorhom/bottom-sheet';
 
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import CustomBottomSheet from '../components/CustomBottomSheet';
+import {CustomTextReg, CustomTextLight} from '../components/CustomText';
 
 type StockCardPropType = PropsWithChildren<{
   stockName: string;
@@ -25,12 +26,12 @@ const StockCard = ({stockCardProps}: {stockCardProps: StockCardPropType}) => {
         style={styles.stockCard__mainCont}
         onPress={handlePresentModalPress}>
         <View>
-          <Text style={styles.stockCard__stockName}>
+          <CustomTextReg style={styles.stockCard__stockName}>
             {stockCardProps.stockName}
-          </Text>
-          <Text style={styles.stockCard__stockCompany}>
+          </CustomTextReg>
+          <CustomTextLight style={styles.stockCard__stockCompany}>
             {stockCardProps.stockCompany}
-          </Text>
+          </CustomTextLight>
         </View>
         <View style={styles.stockCard__rightCont}>
           <Text style={styles.stockCard__stockPrice}>
@@ -64,12 +65,10 @@ const styles = StyleSheet.create({
   stockCard__stockName: {
     color: 'white',
     fontSize: 16,
-    fontFamily: 'Poppins Regular',
   },
   stockCard__stockCompany: {
     color: '#4b4c4d',
     fontSize: 15,
-    fontFamily: 'Poppins Light',
   },
   stockCard__rightCont: {
     display: 'flex',
