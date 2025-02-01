@@ -5,6 +5,7 @@ import {StyleSheet, ScrollView, View} from 'react-native';
 import StockCard from '../components/StockCard';
 import SearchBar from '../components/SearchBar';
 import {CustomTextReg} from '../components/CustomText';
+import IconsIon from 'react-native-vector-icons/Ionicons';
 
 const Explore = () => {
   const stockcardarr = [
@@ -55,7 +56,12 @@ const Explore = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.explore__mainCont}>
-        <CustomTextReg style={styles.explore__title}>Watchlists</CustomTextReg>
+        <View style={styles.explore__titleCont}>
+          <CustomTextReg style={styles.explore__title}>
+            Watchlists
+          </CustomTextReg>
+          <IconsIon name="add-outline" size={30} color="white" />
+        </View>
         <View style={styles.explore__searchBar}>
           <SearchBar />
         </View>
@@ -80,10 +86,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flex: 1,
   },
+  explore__titleCont: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '90%',
+    alignSelf: 'center',
+  },
   explore__title: {
     fontSize: 30,
     color: 'white',
-    marginLeft: '5%',
     marginVertical: 20,
   },
   explore__searchBar: {
