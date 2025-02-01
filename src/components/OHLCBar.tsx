@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   OHLCBar__bar: {
     height: 5,
-    backgroundColor: '#ff0000',
+    backgroundColor: '#bd0413',
   },
   OHLCBar__barRight: {
     height: 5,

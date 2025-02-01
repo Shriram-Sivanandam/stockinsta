@@ -3,9 +3,9 @@ import React, {Fragment} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
 
 import StockCard from '../components/StockCard';
-import SearchBar from '../components/SearchBar';
 import {CustomTextReg} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
+import CustomInput from '../components/CustomInput';
 
 const Explore = () => {
   const stockcardarr = [
@@ -63,7 +63,11 @@ const Explore = () => {
           <IconsIon name="add-outline" size={30} color="white" />
         </View>
         <View style={styles.explore__searchBar}>
-          <SearchBar />
+          <CustomInput
+            icon1="search"
+            icon2="filter-outline"
+            placeholder="Search and Add Instruments"
+          />
         </View>
         {stockcardarr.map((stockCard, i) => {
           return (
@@ -101,6 +105,8 @@ const styles = StyleSheet.create({
   },
   explore__searchBar: {
     marginBottom: 10,
+    width: '90%',
+    alignSelf: 'center',
   },
   explore__cardCont: {
     borderBottomWidth: 1,

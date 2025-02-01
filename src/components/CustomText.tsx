@@ -20,8 +20,10 @@ export const CustomTextLight = (props: any) => {
 const styles = StyleSheet.create({
   customTextReg: {
     fontFamily: 'Poppins Regular',
+    color: '#fff',
   },
   customTextLight: {
     fontFamily: 'Poppins Light',
+    color: '#fff',
   },
 });

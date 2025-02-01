@@ -10,6 +10,7 @@ import IconsIon from 'react-native-vector-icons/Ionicons';
 
 import Home from './src/screens/Home';
 import Explore from './src/screens/Explore';
+import Login from './src/screens/Login';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const Tab = createBottomTabNavigator();
@@ -50,7 +51,7 @@ function App(): React.JSX.Element {
               />
               <Tab.Screen
                 name="Explore"
-                component={Explore}
+                component={Login}
                 options={{
                   tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
                 }}
@@ -65,9 +66,9 @@ function App(): React.JSX.Element {
 
 const styles = StyleSheet.create({
   app__mainContainer: {
-    backgroundColor: 'black',
     width: '100%',
     height: '100%',
+    backgroundColor: '#000',
   },
   app__tabBar: {
     backgroundColor: 'black',
