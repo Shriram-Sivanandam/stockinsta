@@ -3,6 +3,8 @@ import React, {Fragment} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
 
 import StockCard from '../components/StockCard';
+import SearchBar from '../components/SearchBar';
+import {CustomTextReg} from '../components/CustomText';
 
 const Explore = () => {
   const stockcardarr = [
@@ -53,6 +55,10 @@ const Explore = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.explore__mainCont}>
+        <CustomTextReg style={styles.explore__title}>Watchlists</CustomTextReg>
+        <View style={styles.explore__searchBar}>
+          <SearchBar />
+        </View>
         {stockcardarr.map((stockCard, i) => {
           return (
             <Fragment key={i}>
@@ -73,6 +79,15 @@ const styles = StyleSheet.create({
   explore__mainCont: {
     backgroundColor: 'black',
     flex: 1,
+  },
+  explore__title: {
+    fontSize: 30,
+    color: 'white',
+    marginLeft: '5%',
+    marginVertical: 20,
+  },
+  explore__searchBar: {
+    marginBottom: 10,
   },
   explore__cardCont: {
     borderBottomWidth: 1,

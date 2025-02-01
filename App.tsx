@@ -30,7 +30,7 @@ const ExploreTabBarIcon = (focused: boolean) =>
 
 function App(): React.JSX.Element {
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView>
       <BottomSheetModalProvider>
         <SafeAreaView style={styles.app__mainContainer}>
           <NavigationContainer>
