@@ -1,117 +1,82 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import IconsSimple from 'react-native-vector-icons/SimpleLineIcons';
+import IconsEntypo from 'react-native-vector-icons/Entypo';
+import IconsIon from 'react-native-vector-icons/Ionicons';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+import Home from './src/screens/Home';
+import Explore from './src/screens/Explore';
+import Login from './src/screens/Login';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+const Tab = createBottomTabNavigator();
+
+const HomeTabBarIcon = (focused: boolean) =>
+  focused ? (
+    <IconsEntypo name="home" size={25} color="white" />
+  ) : (
+    <IconsSimple name="home" size={21} color="white" />
   );
-}
+
+const ExploreTabBarIcon = (focused: boolean) =>
+  focused ? (
+    <IconsIon name="compass" size={27} color="white" />
+  ) : (
+    <IconsIon name="compass-outline" size={27} color="white" />
+  );
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <GestureHandlerRootView>
+      <BottomSheetModalProvider>
+        <SafeAreaView style={styles.app__mainContainer}>
+          <NavigationContainer>
+            <Tab.Navigator
+              screenOptions={{
+                headerShown: false,
+                tabBarStyle: styles.app__tabBar,
+                tabBarLabelStyle: styles.app__labelStyle,
+                tabBarShowLabel: false,
+              }}>
+              <Tab.Screen
+                name="Home"
+                children={({navigation}) => <Home navigation={navigation} />}
+                options={{
+                  tabBarIcon: tabInfo => HomeTabBarIcon(tabInfo.focused),
+                }}
+              />
+              <Tab.Screen
+                name="Explore"
+                component={Explore}
+                options={{
+                  tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
+                }}
+              />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </SafeAreaView>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  app__mainContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#000',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  app__tabBar: {
+    backgroundColor: 'black',
+    borderTopWidth: 1,
+    borderColor: '#4b4c4d',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  app__labelStyle: {
+    color: 'white',
   },
 });
 
