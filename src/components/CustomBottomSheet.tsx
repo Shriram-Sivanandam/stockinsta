@@ -1,5 +1,5 @@
 import React, {forwardRef, useMemo, useCallback} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import OHLCBar from './OHLCBar';
 
 import {
@@ -7,6 +7,8 @@ import {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
+import Colors from '../constants/Colors';
+import {CustomTextReg, CustomTextLight} from './CustomText';
 // export type Ref = BottomSheetModal;
 
 interface Props {
@@ -40,18 +42,22 @@ const CustomBottomSheet = forwardRef<Ref, Props>((props, ref) => {
       handleIndicatorStyle={styles.customBottomSheet__handle}>
       <BottomSheetScrollView>
         <View style={styles.customBottomSheet__mainCont}>
-          <Text style={styles.customBottomSheet__stockName}>ONGC</Text>
-          <Text>
-            <Text style={styles.customBottomSheet__subTitle}>NSE</Text>
-            <Text style={styles.customBottomSheet__stockChangeNeg}>
+          <CustomTextReg style={styles.customBottomSheet__stockName}>
+            ONGC
+          </CustomTextReg>
+          <CustomTextLight>
+            <CustomTextLight style={styles.customBottomSheet__subTitle}>
+              NSE
+            </CustomTextLight>
+            <CustomTextLight style={styles.customBottomSheet__stockChangeNeg}>
               {' '}
               4036.45
-            </Text>
-            <Text style={styles.customBottomSheet__subTitle}>
+            </CustomTextLight>
+            <CustomTextLight style={styles.customBottomSheet__subTitle}>
               {' '}
               +15.44(+3.43%)
-            </Text>
-          </Text>
+            </CustomTextLight>
+          </CustomTextLight>
           <View style={styles.customBottomSheet__borderLine} />
           <OHLCBar />
         </View>
@@ -64,35 +70,32 @@ export default CustomBottomSheet;
 
 const styles = StyleSheet.create({
   customBottomSheet__background: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.background,
   },
   customBottomSheet__handle: {
-    backgroundColor: '#4b4c4d',
+    backgroundColor: Colors.secondaryBackground,
   },
   customBottomSheet__mainCont: {
     width: '90%',
     alignSelf: 'center',
   },
   customBottomSheet__stockName: {
-    color: '#fff',
     fontSize: 20,
-    fontFamily: 'Poppins Regular',
   },
   customBottomSheet__subTitle: {
-    color: '#fff',
     fontSize: 15,
   },
   customBottomSheet__stockChangePos: {
-    color: '#39a62b',
+    color: Colors.greenColor,
     fontSize: 15,
   },
   customBottomSheet__stockChangeNeg: {
-    color: '#ff0000',
+    color: Colors.redColor,
     fontSize: 15,
   },
   customBottomSheet__borderLine: {
     borderBottomWidth: 1,
-    borderColor: '#4b4c4d',
+    borderColor: Colors.secondaryBackground,
     marginVertical: 15,
   },
 });

@@ -3,6 +3,7 @@ import React from 'react';
 
 import {CustomTextReg} from '../components/CustomText';
 import CustomInput from '../components/CustomInput';
+import Colors from '../constants/Colors';
 
 const Login = () => {
   return (
@@ -14,15 +15,11 @@ const Login = () => {
         />
         <View>
           <View style={styles.login__input}>
-            <CustomTextReg style={styles.login__inputLabel}>
-              Email
-            </CustomTextReg>
+            <CustomTextReg>Email</CustomTextReg>
             <CustomInput icon1="mail-outline" placeholder="Username" />
           </View>
           <View style={styles.login__input}>
-            <CustomTextReg style={styles.login__inputLabel}>
-              Password
-            </CustomTextReg>
+            <CustomTextReg>Password</CustomTextReg>
             <CustomInput
               icon1="lock-closed-outline"
               placeholder="Password"
@@ -48,7 +45,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   login__mainCont: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.background,
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -70,15 +67,12 @@ const styles = StyleSheet.create({
   login__input: {
     marginTop: 20,
   },
-  login__inputLabel: {
-    color: '#fff',
-  },
   login__forgotPassword: {
     textAlign: 'right',
     marginTop: 5,
   },
   login__button: {
-    backgroundColor: '#bd0413',
+    backgroundColor: Colors.redColor,
     padding: 10,
     borderRadius: 5,
     display: 'flex',

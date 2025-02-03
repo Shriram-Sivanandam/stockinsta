@@ -1,5 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
+
+import Colors from '../constants/Colors';
+import {CustomTextReg, CustomTextLight} from './CustomText';
 
 const OHLCBar = () => {
   const low = 1637;
@@ -10,10 +13,14 @@ const OHLCBar = () => {
   const perctEnd = open > close ? open : close;
   return (
     <View>
-      <Text style={styles.OHLCBar__heading}>OHLC</Text>
+      <CustomTextReg style={styles.OHLCBar__heading}>OHLC</CustomTextReg>
       <View style={styles.OHLCBar__splitHeadings}>
-        <Text style={styles.OHLCBar__highLowText}>Low</Text>
-        <Text style={styles.OHLCBar__highLowText}>High</Text>
+        <CustomTextLight style={styles.OHLCBar__highLowText}>
+          Low
+        </CustomTextLight>
+        <CustomTextLight style={styles.OHLCBar__highLowText}>
+          High
+        </CustomTextLight>
       </View>
       <View style={styles.OHLCBar__totalBar}>
         <View
@@ -36,18 +43,22 @@ const OHLCBar = () => {
         />
       </View>
       <View style={styles.OHLCBar__splitHeadings}>
-        <Text style={styles.OHLCBar__highLowNumText}>{low}</Text>
-        <Text style={styles.OHLCBar__highLowNumText}>{high}</Text>
+        <CustomTextLight>{low}</CustomTextLight>
+        <CustomTextLight>{high}</CustomTextLight>
       </View>
       <View style={[styles.OHLCBar__splitHeadings, styles.OHLCBar__openClose]}>
-        <Text>
-          <Text style={styles.OHLCBar__highLowText}>Open </Text>
-          <Text style={styles.OHLCBar__highLowNumText}>{open}</Text>
-        </Text>
-        <Text>
-          <Text style={styles.OHLCBar__highLowText}>Prev. Close </Text>
-          <Text style={styles.OHLCBar__highLowNumText}>{close}</Text>
-        </Text>
+        <CustomTextLight>
+          <CustomTextLight style={styles.OHLCBar__highLowText}>
+            Open{' '}
+          </CustomTextLight>
+          <CustomTextLight>{open}</CustomTextLight>
+        </CustomTextLight>
+        <CustomTextLight>
+          <CustomTextLight style={styles.OHLCBar__highLowText}>
+            Prev. Close{' '}
+          </CustomTextLight>
+          <CustomTextLight>{close}</CustomTextLight>
+        </CustomTextLight>
       </View>
     </View>
   );
@@ -57,7 +68,6 @@ export default OHLCBar;
 
 const styles = StyleSheet.create({
   OHLCBar__heading: {
-    color: '#fff',
     fontSize: 15,
     marginBottom: 10,
   },
@@ -68,11 +78,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   OHLCBar__highLowText: {
-    color: '#9e9b9b',
+    color: Colors.secondaryText,
   },
   OHLCBar__barLeft: {
     height: 5,
-    backgroundColor: '#4b4c4d',
+    backgroundColor: Colors.secondaryBackground,
   },
   OHLCBar__totalBar: {
     display: 'flex',
@@ -81,14 +91,11 @@ const styles = StyleSheet.create({
   },
   OHLCBar__bar: {
     height: 5,
-    backgroundColor: '#bd0413',
+    backgroundColor: Colors.redColor,
   },
   OHLCBar__barRight: {
     height: 5,
-    backgroundColor: '#4b4c4d',
-  },
-  OHLCBar__highLowNumText: {
-    color: '#fff',
+    backgroundColor: Colors.secondaryBackground,
   },
   OHLCBar__openClose: {
     marginTop: 15,

@@ -41,6 +41,7 @@ function App(): React.JSX.Element {
                 tabBarStyle: styles.app__tabBar,
                 tabBarLabelStyle: styles.app__labelStyle,
                 tabBarShowLabel: false,
+                tabBarHideOnKeyboard: true,
               }}>
               <Tab.Screen
                 name="Home"
@@ -51,7 +52,7 @@ function App(): React.JSX.Element {
               />
               <Tab.Screen
                 name="Explore"
-                component={Explore}
+                component={Login}
                 options={{
                   tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
                 }}

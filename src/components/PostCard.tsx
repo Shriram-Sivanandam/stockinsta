@@ -1,10 +1,13 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 
-import {SafeAreaView, View, Text, Image, StyleSheet} from 'react-native';
+import {SafeAreaView, View, Image, StyleSheet} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
 
 import {NavigationProp} from '@react-navigation/native';
+
+import Colors from '../constants/Colors';
+import {CustomTextReg} from './CustomText';
 
 type PostCardPropType = PropsWithChildren<{
   userName: string;
@@ -27,11 +30,11 @@ const PostCard = ({
               source={{uri: postCardProps.logoImage}}
               style={styles.postCard__logo}
             />
-            <Text
+            <CustomTextReg
               style={styles.postCard__userName}
               onPress={() => navigation.navigate('Explore')}>
               {postCardProps.userName}
-            </Text>
+            </CustomTextReg>
           </View>
           <Icons name="dots-three-vertical" size={15} color="white" />
         </View>
@@ -48,7 +51,7 @@ const PostCard = ({
 
 const styles = StyleSheet.create({
   postCard__mainContainer: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.background,
     width: '100%',
   },
   postCard__titleContainer: {
@@ -71,11 +74,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: '#4b4c4d',
+    borderColor: Colors.secondaryBackground,
   },
   postCard__userName: {
-    color: 'white',
-    fontWeight: 400,
     fontSize: 15,
   },
   postCard__postImage: {

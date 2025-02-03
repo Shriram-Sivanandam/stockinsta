@@ -3,9 +3,10 @@ import type {PropsWithChildren} from 'react';
 
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import CustomBottomSheet from '../components/CustomBottomSheet';
 import {CustomTextReg, CustomTextLight} from '../components/CustomText';
+import Colors from '../constants/Colors';
 
 type StockCardPropType = PropsWithChildren<{
   stockName: string;
@@ -34,12 +35,12 @@ const StockCard = ({stockCardProps}: {stockCardProps: StockCardPropType}) => {
           </CustomTextLight>
         </View>
         <View style={styles.stockCard__rightCont}>
-          <Text style={styles.stockCard__stockPrice}>
+          <CustomTextReg style={styles.stockCard__stockPrice}>
             {stockCardProps.stockPrice}
-          </Text>
-          <Text style={styles.stockCard__stockChangePos}>
+          </CustomTextReg>
+          <CustomTextLight style={styles.stockCard__stockChangePos}>
             {stockCardProps.stockChange} ({stockCardProps.stockChangePercent})
-          </Text>
+          </CustomTextLight>
         </View>
       </Pressable>
       <CustomBottomSheet
@@ -63,11 +64,10 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   stockCard__stockName: {
-    color: 'white',
     fontSize: 16,
   },
   stockCard__stockCompany: {
-    color: '#4b4c4d',
+    color: Colors.secondaryText,
     fontSize: 15,
   },
   stockCard__rightCont: {
@@ -76,15 +76,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   stockCard__stockPrice: {
-    color: 'white',
     fontSize: 15,
   },
   stockCard__stockChangePos: {
-    color: '#39a62b',
+    color: Colors.greenColor,
     fontSize: 14,
   },
   stockCard__stockChangeNeg: {
-    color: '#ff0000',
+    color: Colors.redColor,
     fontSize: 14,
   },
 });

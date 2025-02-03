@@ -3,6 +3,7 @@ import React from 'react';
 import type {PropsWithChildren} from 'react';
 
 import IconsIon from 'react-native-vector-icons/Ionicons';
+import Colors from '../constants/Colors';
 
 type CustomInputPropType = PropsWithChildren<{
   icon1: string;
@@ -14,7 +15,7 @@ type CustomInputPropType = PropsWithChildren<{
 const CustomInput = (props: CustomInputPropType) => {
   return (
     <View style={styles.customInput__mainCont}>
-      <IconsIon name={props.icon1} size={20} color="#fff" />
+      <IconsIon name={props.icon1} size={20} color={Colors.primaryText} />
       <TextInput
         style={styles.customInput__input}
         // onChangeText={onChangeNumber}
@@ -23,7 +24,9 @@ const CustomInput = (props: CustomInputPropType) => {
         keyboardType="default"
         secureTextEntry={props.password}
       />
-      {props.icon2 && <IconsIon name={props.icon2} size={20} color="#fff" />}
+      {props.icon2 && (
+        <IconsIon name={props.icon2} size={20} color={Colors.primaryText} />
+      )}
     </View>
   );
 };
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     height: 50,
     padding: 10,
-    backgroundColor: '#4b4c4d',
+    backgroundColor: Colors.secondaryBackground,
     borderRadius: 5,
   },
   customInput__input: {

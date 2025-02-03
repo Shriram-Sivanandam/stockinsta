@@ -6,6 +6,7 @@ import StockCard from '../components/StockCard';
 import {CustomTextReg} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 import CustomInput from '../components/CustomInput';
+import Colors from '../constants/Colors';
 
 const Explore = () => {
   const stockcardarr = [
@@ -87,7 +88,7 @@ export default Explore;
 
 const styles = StyleSheet.create({
   explore__mainCont: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.background,
     flex: 1,
   },
   explore__titleCont: {
@@ -110,11 +111,7 @@ const styles = StyleSheet.create({
   },
   explore__cardCont: {
     borderBottomWidth: 1,
-    borderColor: '#4b4c4d',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: 'grey',
+    borderColor: Colors.secondaryBackground,
   },
   contentContainer: {
     flex: 1,
