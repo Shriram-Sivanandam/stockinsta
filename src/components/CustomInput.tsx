@@ -10,6 +10,8 @@ type CustomInputPropType = PropsWithChildren<{
   icon2?: string;
   placeholder: string;
   password?: boolean;
+  value: string;
+  setValue: (value: string) => void;
 }>;
 
 const CustomInput = (props: CustomInputPropType) => {
@@ -18,8 +20,8 @@ const CustomInput = (props: CustomInputPropType) => {
       <IconsIon name={props.icon1} size={20} color={Colors.primaryText} />
       <TextInput
         style={styles.customInput__input}
-        // onChangeText={onChangeNumber}
-        // value={number}
+        onChangeText={val => props.setValue(val)}
+        value={props.value}
         placeholder={props.placeholder}
         keyboardType="default"
         secureTextEntry={props.password}
@@ -47,5 +49,6 @@ const styles = StyleSheet.create({
   customInput__input: {
     height: 45,
     width: '80%',
+    color: Colors.primaryText,
   },
 });

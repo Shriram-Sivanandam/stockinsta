@@ -1,11 +1,25 @@
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
 
 import {CustomTextReg} from '../components/CustomText';
 import CustomInput from '../components/CustomInput';
 import Colors from '../constants/Colors';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignUp = () => {
+    console.log(email, password);
+    axios
+      .post('http://localhost:3000/users/registerUser', {email, password})
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.login__mainCont}>
       <View style={styles.login__centerCont}>
@@ -16,7 +30,12 @@ const Login = () => {
         <View>
           <View style={styles.login__input}>
             <CustomTextReg>Email</CustomTextReg>
-            <CustomInput icon1="mail-outline" placeholder="Username" />
+            <CustomInput
+              icon1="mail-outline"
+              placeholder="Email"
+              value={email}
+              setValue={setEmail}
+            />
           </View>
           <View style={styles.login__input}>
             <CustomTextReg>Password</CustomTextReg>
@@ -24,13 +43,18 @@ const Login = () => {
               icon1="lock-closed-outline"
               placeholder="Password"
               password={true}
+              value={password}
+              setValue={setPassword}
             />
             <CustomTextReg style={styles.login__forgotPassword}>
               Forgot Password?
             </CustomTextReg>
           </View>
         </View>
-        <TouchableOpacity style={styles.login__button} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.login__button}
+          activeOpacity={0.8}
+          onPress={handleSignUp}>
           <CustomTextReg>Log In</CustomTextReg>
         </TouchableOpacity>
         <CustomTextReg style={styles.login__footer}>
