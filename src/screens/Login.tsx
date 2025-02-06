@@ -13,7 +13,7 @@ const Login = () => {
   const handleSignUp = () => {
     console.log(email, password);
     axios
-      .post('http://localhost:3000/users/registerUser', {email, password})
+      .post('http://192.168.1.2:3000/users/registerUser', {email, password})
       .then(res => {
         console.log(res.data);
       })
