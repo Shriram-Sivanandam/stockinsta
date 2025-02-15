@@ -2,10 +2,10 @@ import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import axios from 'axios';
 
-import {CustomTextReg} from '../components/CustomText';
-import CustomInput from '../components/CustomInput';
-import Colors from '../constants/Colors';
-import {BASE_URL} from '../frontend-api-service/Base';
+import {CustomTextReg} from '../../components/CustomText';
+import CustomInput from '../../components/CustomInput';
+import Colors from '../../constants/Colors';
+import {BASE_URL} from '../../frontend-api-service/Base';
 
 const Login = () => {
   const [email, setEmail] = useState('');

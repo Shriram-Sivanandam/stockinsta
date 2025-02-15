@@ -2,10 +2,10 @@ import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import axios from 'axios';
 
-import {CustomTextReg} from '../components/CustomText';
-import CustomInput from '../components/CustomInput';
-import Colors from '../constants/Colors';
-import {BASE_URL} from '../frontend-api-service/Base';
+import {CustomTextReg} from '../../components/CustomText';
+import CustomInput from '../../components/CustomInput';
+import Colors from '../../constants/Colors';
+import {BASE_URL} from '../../frontend-api-service/Base';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -47,9 +47,16 @@ const Login = () => {
               value={password}
               setValue={setPassword}
             />
-            <CustomTextReg style={styles.login__forgotPassword}>
-              Forgot Password?
-            </CustomTextReg>
+          </View>
+          <View style={styles.login__input}>
+            <CustomTextReg>Confirm Password</CustomTextReg>
+            <CustomInput
+              icon1="lock-closed-outline"
+              placeholder="Password"
+              password={true}
+              value={password}
+              setValue={setPassword}
+            />
           </View>
         </View>
         <TouchableOpacity
