@@ -9,8 +9,8 @@ import IconsEntypo from 'react-native-vector-icons/Entypo';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 
 import Home from './src/screens/Home';
-import Explore from './src/screens/Explore';
-import Login from './src/screens/Login';
+//import Explore from './src/screens/Explore';
+import Login from './src/screens/Auth/OTPVerification';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const Tab = createBottomTabNavigator();

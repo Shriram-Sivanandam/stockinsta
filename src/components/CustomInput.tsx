@@ -11,6 +11,7 @@ type CustomInputPropType = PropsWithChildren<{
   placeholder: string;
   password?: boolean;
   value: string;
+  keyboardType: 'default' | 'number-pad' | 'numeric' | 'phone-pad';
   setValue: (value: string) => void;
 }>;
 
@@ -23,7 +24,7 @@ const CustomInput = (props: CustomInputPropType) => {
         onChangeText={val => props.setValue(val)}
         value={props.value}
         placeholder={props.placeholder}
-        keyboardType="default"
+        keyboardType={props.keyboardType}
         secureTextEntry={props.password}
       />
       {props.icon2 && (

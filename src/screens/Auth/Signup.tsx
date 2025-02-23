@@ -7,7 +7,7 @@ import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import {BASE_URL} from '../../frontend-api-service/Base';
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,6 +36,7 @@ const Login = () => {
               placeholder="Email"
               value={email}
               setValue={setEmail}
+              keyboardType="default"
             />
           </View>
           <View style={styles.login__input}>
@@ -46,16 +47,18 @@ const Login = () => {
               password={true}
               value={password}
               setValue={setPassword}
+              keyboardType="default"
             />
           </View>
           <View style={styles.login__input}>
             <CustomTextReg>Confirm Password</CustomTextReg>
             <CustomInput
               icon1="lock-closed-outline"
-              placeholder="Password"
+              placeholder="Re-enter Password"
               password={true}
               value={password}
               setValue={setPassword}
+              keyboardType="default"
             />
           </View>
         </View>
@@ -63,17 +66,17 @@ const Login = () => {
           style={styles.login__button}
           activeOpacity={0.8}
           onPress={handleSignUp}>
-          <CustomTextReg>Log In</CustomTextReg>
+          <CustomTextReg>Sign Up</CustomTextReg>
         </TouchableOpacity>
         <CustomTextReg style={styles.login__footer}>
-          Don't have an account? Sign Up
+          Already have an acount? Login
         </CustomTextReg>
       </View>
     </View>
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
   login__mainCont: {

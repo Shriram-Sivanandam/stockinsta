@@ -36,6 +36,7 @@ const Login = () => {
               placeholder="Email"
               value={email}
               setValue={setEmail}
+              keyboardType="default"
             />
           </View>
           <View style={styles.login__input}>
@@ -46,6 +47,7 @@ const Login = () => {
               password={true}
               value={password}
               setValue={setPassword}
+              keyboardType="default"
             />
             <CustomTextReg style={styles.login__forgotPassword}>
               Forgot Password?
