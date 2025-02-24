@@ -6,10 +6,14 @@ import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import {BASE_URL} from '../../frontend-api-service/Base';
+import {useNavigation} from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     console.log(email, password);
@@ -36,6 +40,7 @@ const Login = () => {
               placeholder="Email"
               value={email}
               setValue={setEmail}
+              keyboardType="default"
             />
           </View>
           <View style={styles.login__input}>
@@ -46,6 +51,7 @@ const Login = () => {
               password={true}
               value={password}
               setValue={setPassword}
+              keyboardType="default"
             />
             <CustomTextReg style={styles.login__forgotPassword}>
               Forgot Password?
@@ -58,9 +64,12 @@ const Login = () => {
           onPress={handleSignUp}>
           <CustomTextReg>Log In</CustomTextReg>
         </TouchableOpacity>
-        <CustomTextReg style={styles.login__footer}>
-          Don't have an account? Sign Up
-        </CustomTextReg>
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(StackActions.push('Signup'))}>
+          <CustomTextReg style={styles.login__footer}>
+            Don't have an account? Sign Up
+          </CustomTextReg>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -5,11 +5,15 @@ import axios from 'axios';
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
-import {BASE_URL} from '../../frontend-api-service/Base';
+import {BASE_URL} from '../../frontend-api-service/Base/index';
+import {useNavigation} from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     console.log(email, password);
@@ -68,9 +72,12 @@ const Signup = () => {
           onPress={handleSignUp}>
           <CustomTextReg>Sign Up</CustomTextReg>
         </TouchableOpacity>
-        <CustomTextReg style={styles.login__footer}>
-          Already have an acount? Login
-        </CustomTextReg>
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(StackActions.push('Login'))}>
+          <CustomTextReg style={styles.login__footer}>
+            Already have an acount? Login
+          </CustomTextReg>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -10,7 +10,7 @@ import IconsIon from 'react-native-vector-icons/Ionicons';
 
 import Home from './src/screens/Home';
 //import Explore from './src/screens/Explore';
-import Login from './src/screens/Auth/OTPVerification';
+import Auth from './src/screens/Auth';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const Tab = createBottomTabNavigator();
@@ -52,7 +52,7 @@ function App(): React.JSX.Element {
               />
               <Tab.Screen
                 name="Explore"
-                component={Login}
+                component={Auth}
                 options={{
                   tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
                 }}
