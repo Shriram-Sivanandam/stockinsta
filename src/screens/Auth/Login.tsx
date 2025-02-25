@@ -1,28 +1,25 @@
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
-import axios from 'axios';
 
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
-import {BASE_URL} from '../../frontend-api-service/Base';
-import {useNavigation} from '@react-navigation/native';
-import {StackActions} from '@react-navigation/native';
+
+import {
+  useNavigation,
+  NavigationProp,
+  StackActions,
+} from '@react-navigation/native';
+import {RootStackParamList} from '../../Types/Types';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const handleSignUp = () => {
-    console.log(email, password);
-    axios
-      .post(`${BASE_URL}/users/registerUser`, {email, password})
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => console.log(err));
+  const handleLogin = () => {
+    navigation.navigate('Home');
   };
 
   return (
@@ -53,15 +50,20 @@ const Login = () => {
               setValue={setPassword}
               keyboardType="default"
             />
-            <CustomTextReg style={styles.login__forgotPassword}>
-              Forgot Password?
-            </CustomTextReg>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.dispatch(StackActions.push('ForgotPassword'))
+              }>
+              <CustomTextReg style={styles.login__forgotPassword}>
+                Forgot Password?
+              </CustomTextReg>
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity
           style={styles.login__button}
           activeOpacity={0.8}
-          onPress={handleSignUp}>
+          onPress={handleLogin}>
           <CustomTextReg>Log In</CustomTextReg>
         </TouchableOpacity>
         <TouchableOpacity

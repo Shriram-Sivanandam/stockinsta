@@ -6,8 +6,7 @@ import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import {BASE_URL} from '../../frontend-api-service/Base/index';
-import {useNavigation} from '@react-navigation/native';
-import {StackActions} from '@react-navigation/native';
+import {useNavigation, StackActions} from '@react-navigation/native';
 
 const Signup = () => {
   const [email, setEmail] = useState('');

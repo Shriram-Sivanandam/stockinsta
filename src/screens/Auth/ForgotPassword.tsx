@@ -4,9 +4,12 @@ import React, {useState} from 'react';
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
+import {StackActions, useNavigation} from '@react-navigation/native';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.login__mainCont}>
@@ -27,7 +30,12 @@ const ForgotPassword = () => {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.login__button} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.login__button}
+          activeOpacity={0.8}
+          onPress={() =>
+            navigation.dispatch(StackActions.push('OTPVerification'))
+          }>
           <CustomTextReg>Send OTP</CustomTextReg>
         </TouchableOpacity>
       </View>

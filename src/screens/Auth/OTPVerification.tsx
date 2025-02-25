@@ -4,9 +4,13 @@ import React, {useState} from 'react';
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
+import {RootStackParamList} from '../../Types/Types';
 
 const ForgotPassword = () => {
   const [OTP, setOTP] = useState('');
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.login__mainCont}>
@@ -27,7 +31,10 @@ const ForgotPassword = () => {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.login__button} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.login__button}
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('Home')}>
           <CustomTextReg>Confirm OTP</CustomTextReg>
         </TouchableOpacity>
       </View>
