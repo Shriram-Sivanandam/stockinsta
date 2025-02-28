@@ -1,6 +1,8 @@
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
+import axios from 'axios';
 
+import {BASE_URL} from '../../frontend-api-service/Base/index';
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
@@ -15,11 +17,17 @@ import {RootStackParamList} from '../../Types/Types';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  axios.defaults.withCredentials = true;
 
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleLogin = () => {
-    navigation.navigate('Home');
+    axios
+      .post(`${BASE_URL}/users/login`, {email, password})
+      .then(() => {
+        navigation.navigate('Home');
+      })
+      .catch(err => console.log(err));
   };
 
   return (

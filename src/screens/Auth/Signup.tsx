@@ -18,8 +18,8 @@ const Signup = () => {
     console.log(email, password);
     axios
       .post(`${BASE_URL}/users/registerUser`, {email, password})
-      .then(res => {
-        console.log(res.data);
+      .then(() => {
+        navigation.dispatch(StackActions.push('OTPVerification'));
       })
       .catch(err => console.log(err));
   };
