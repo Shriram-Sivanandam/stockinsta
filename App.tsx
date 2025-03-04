@@ -9,8 +9,8 @@ import IconsEntypo from 'react-native-vector-icons/Entypo';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 
 import Home from './src/screens/Home';
-//import Explore from './src/screens/Explore';
-import Auth from './src/screens/Auth';
+import Explore from './src/screens/Explore';
+//import Auth from './src/screens/Auth';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const Tab = createBottomTabNavigator();
@@ -52,7 +52,7 @@ function App(): React.JSX.Element {
               />
               <Tab.Screen
                 name="Explore"
-                component={Auth}
+                component={Explore}
                 options={{
                   tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
                 }}

@@ -1,7 +1,8 @@
-import React, {Fragment} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
+import axios from 'axios';
+import {BASE_URL} from '../frontend-api-service/Base';
 
 import {StyleSheet, ScrollView, View} from 'react-native';
-
 import StockCard from '../components/StockCard';
 import {CustomTextReg} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
@@ -9,9 +10,25 @@ import CustomInput from '../components/CustomInput';
 import Colors from '../constants/Colors';
 
 const Explore = () => {
+  const [instArr, setInstArr] = useState([]);
+  const [search, setSearch] = useState('');
+  const userid = '1000040';
+  const pageno = '1';
+
+  useEffect(() => {
+    axios
+      .get(
+        `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${pageno}`,
+      )
+      .then(res => {
+        setInstArr(res.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   const stockcardarr = [
     {
-      stockName: 'AAPL',
+      stockName: instArr[0],
       stockCompany: 'Apple Inc.',
       stockIndex: 'NASDAQ',
       stockPrice: '145.86',
@@ -19,7 +36,7 @@ const Explore = () => {
       stockChangePercent: '+0.59%',
     },
     {
-      stockName: 'TSLA',
+      stockName: instArr[1],
       stockCompany: 'Tesla Inc.',
       stockIndex: 'NASDAQ',
       stockPrice: '654.86',
@@ -27,7 +44,7 @@ const Explore = () => {
       stockChangePercent: '+0.59%',
     },
     {
-      stockName: 'GOOGL',
+      stockName: instArr[2],
       stockCompany: 'Alphabet Inc.',
       stockIndex: 'NASDAQ',
       stockPrice: '245.86',
@@ -68,6 +85,9 @@ const Explore = () => {
             icon1="search"
             icon2="filter-outline"
             placeholder="Search and Add Instruments"
+            value={search}
+            setValue={setSearch}
+            keyboardType="default"
           />
         </View>
         {stockcardarr.map((stockCard, i) => {
