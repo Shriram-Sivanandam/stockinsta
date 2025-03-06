@@ -8,9 +8,11 @@ import {CustomTextReg} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 import CustomInput from '../components/CustomInput';
 import Colors from '../constants/Colors';
+import ScrollableHeadingTabs from '../components/ScrollableHeadingTabs';
 
 const Explore = () => {
   const [instArr, setInstArr] = useState([]);
+  const [tabnames, setTabNames] = useState([]);
   const [search, setSearch] = useState('');
   const userid = '1000040';
   const pageno = '1';
@@ -22,6 +24,16 @@ const Explore = () => {
       )
       .then(res => {
         setInstArr(res.data);
+      })
+      .catch(err => console.log(err));
+
+    axios
+      .get(`${BASE_URL}/explore/getExplorePages?userid=${userid}`)
+      .then(res => {
+        const onlyTabNames = res.data.map(
+          (tab: {pagename: string}) => tab.pagename,
+        );
+        setTabNames(onlyTabNames);
       })
       .catch(err => console.log(err));
   }, []);
@@ -80,6 +92,7 @@ const Explore = () => {
           </CustomTextReg>
           <IconsIon name="add-outline" size={30} color="white" />
         </View>
+        <ScrollableHeadingTabs tabnames={tabnames} />
         <View style={styles.explore__searchBar}>
           <CustomInput
             icon1="search"
