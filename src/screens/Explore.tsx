@@ -2,7 +2,7 @@ import React, {useState, useEffect, Fragment} from 'react';
 import axios from 'axios';
 import {BASE_URL} from '../frontend-api-service/Base';
 
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, View, RefreshControl} from 'react-native';
 import StockCard from '../components/StockCard';
 import {CustomTextReg} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
@@ -14,6 +14,8 @@ const Explore = () => {
   const [instArr, setInstArr] = useState([]);
   const [tabnames, setTabNames] = useState([]);
   const [search, setSearch] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+
   const userid = '1000040';
   const pageno = '1';
 
@@ -37,6 +39,21 @@ const Explore = () => {
       })
       .catch(err => console.log(err));
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    console.log('Refreshing', BASE_URL);
+    setRefreshing(false);
+    axios
+      .get(
+        `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${pageno}`,
+      )
+      .then(res => {
+        setInstArr(res.data);
+        setRefreshing(false);
+      })
+      .catch(err => console.log(err));
+  };
 
   const stockcardarr = [
     {
@@ -85,7 +102,10 @@ const Explore = () => {
     <View style={styles.explore__mainCont}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={styles.explore__mainCont}>
+        style={styles.explore__mainCont}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View style={styles.explore__titleCont}>
           <CustomTextReg style={styles.explore__title}>
             Watchlists
