@@ -43,7 +43,6 @@ const Explore = () => {
   const onRefresh = () => {
     setRefreshing(true);
     console.log('Refreshing', BASE_URL);
-    setRefreshing(false);
     axios
       .get(
         `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${pageno}`,
