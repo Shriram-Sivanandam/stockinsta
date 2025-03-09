@@ -53,7 +53,7 @@ function App(): React.JSX.Element {
               />
               <Tab.Screen
                 name="Explore"
-                component={SearchStock}
+                component={Explore}
                 options={{
                   tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
                 }}

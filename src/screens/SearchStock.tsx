@@ -1,16 +1,10 @@
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  ScrollView,
-  RefreshControl,
-} from 'react-native';
+import {StyleSheet, View, FlatList, RefreshControl} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 import SearchStockCard from '../components/SearchStockCard';
-import {CustomTextReg} from '../components/CustomText';
 import {BASE_URL} from '../frontend-api-service/Base';
+import CustomInput from '../components/CustomInput';
 
 type SearchStockPropType = {
   instrument_token: string;
@@ -23,20 +17,28 @@ type SearchStockPropType = {
 const SearchStock = () => {
   const [searchData, setSearchData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/explore/searchInstrument?searchParam=tcs`)
-      .then(res => {
-        setSearchData(res.data);
-      });
-  });
+    if (search === '') {
+      setSearchData([]);
+      return;
+    } else if (search.length < 3) {
+      return;
+    } else {
+      axios
+        .get(`${BASE_URL}/explore/searchInstrument?searchParam=${search}`)
+        .then(res => {
+          setSearchData(res.data);
+        });
+    }
+  }, [search]);
 
   const onRefresh = () => {
     setRefreshing(true);
     console.log('Refreshing', BASE_URL);
     axios
-      .get(`${BASE_URL}/explore/searchInstrument?searchParam=tcs`)
+      .get(`${BASE_URL}/explore/searchInstrument?searchParam=${search}`)
       .then(res => {
         setSearchData(res.data);
         setRefreshing(false);
@@ -46,7 +48,16 @@ const SearchStock = () => {
 
   return (
     <View style={styles.SearchStock__mainCont}>
-      <CustomTextReg>SearchStock</CustomTextReg>
+      <View style={styles.SearchStock__searchBar}>
+        <CustomInput
+          icon1="search"
+          icon2="filter-outline"
+          placeholder="Search and Add Instruments"
+          value={search}
+          setValue={setSearch}
+          keyboardType="default"
+        />
+      </View>
       <FlatList
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -71,5 +82,11 @@ const styles = StyleSheet.create({
   SearchStock__mainCont: {
     backgroundColor: 'black',
     flex: 1,
+  },
+  SearchStock__searchBar: {
+    marginTop: 30,
+    marginBottom: 10,
+    width: '90%',
+    alignSelf: 'center',
   },
 });

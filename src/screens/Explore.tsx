@@ -56,7 +56,7 @@ const Explore = () => {
 
   const stockcardarr = [
     {
-      stockName: instArr[0],
+      stockName: instArr[0]?.tradingsymbol,
       stockCompany: 'Apple Inc.',
       stockIndex: 'NASDAQ',
       stockPrice: '145.86',
@@ -64,7 +64,7 @@ const Explore = () => {
       stockChangePercent: '+0.59%',
     },
     {
-      stockName: instArr[1],
+      stockName: instArr[1]?.tradingsymbol,
       stockCompany: 'Tesla Inc.',
       stockIndex: 'NASDAQ',
       stockPrice: '654.86',
@@ -72,7 +72,7 @@ const Explore = () => {
       stockChangePercent: '+0.59%',
     },
     {
-      stockName: instArr[2],
+      stockName: instArr[0]?.tradingsymbol,
       stockCompany: 'Alphabet Inc.',
       stockIndex: 'NASDAQ',
       stockPrice: '245.86',
