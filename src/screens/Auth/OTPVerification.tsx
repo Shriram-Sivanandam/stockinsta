@@ -5,12 +5,12 @@ import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../Types/Types';
+import {AuthRootStackParamList} from '../../Types/Types';
 
 const ForgotPassword = () => {
   const [OTP, setOTP] = useState('');
 
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
 
   return (
     <View style={styles.login__mainCont}>

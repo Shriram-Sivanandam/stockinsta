@@ -1,17 +1,35 @@
 import {StyleSheet, View, Pressable} from 'react-native';
 import React from 'react';
+import axios from 'axios';
 
 import {CustomTextReg, CustomTextLight} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors';
+import {BASE_URL} from '../frontend-api-service/Base/index';
 
 type SearchStockCardPropType = {
   tradingsymbol: string;
   name: string;
   exchange: string;
+  page: number;
 };
 
 const SearchStockCard = (props: SearchStockCardPropType) => {
+  const userid = '1000040';
+  const addInstrument = (tradingsymbol: string, exchange: string) => {
+    axios
+      .post(`${BASE_URL}/explore/addInstrument`, {
+        userid,
+        tradingsymbol,
+        pageno: props.page,
+        exchange,
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={styles.SearchStockCard__mainCont}>
       <View style={styles.SearchStockCard__leftCont}>
@@ -25,7 +43,8 @@ const SearchStockCard = (props: SearchStockCardPropType) => {
           </CustomTextLight>
         </View>
       </View>
-      <Pressable>
+      <Pressable
+        onPress={() => addInstrument(props.tradingsymbol, props.exchange)}>
         <IconsIon
           name="add-circle-outline"
           size={30}

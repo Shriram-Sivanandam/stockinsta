@@ -10,6 +10,8 @@ type CustomInputPropType = PropsWithChildren<{
   icon2?: string;
   placeholder: string;
   password?: boolean;
+  editable?: boolean;
+  autoFocus?: boolean;
   value: string;
   keyboardType: 'default' | 'number-pad' | 'numeric' | 'phone-pad';
   setValue: (value: string) => void;
@@ -26,6 +28,8 @@ const CustomInput = (props: CustomInputPropType) => {
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
         secureTextEntry={props.password}
+        editable={props.editable}
+        autoFocus={props.autoFocus}
       />
       {props.icon2 && (
         <IconsIon name={props.icon2} size={20} color={Colors.primaryText} />

@@ -12,14 +12,14 @@ import {
   NavigationProp,
   StackActions,
 } from '@react-navigation/native';
-import {RootStackParamList} from '../../Types/Types';
+import {AuthRootStackParamList} from '../../Types/Types';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   axios.defaults.withCredentials = true;
 
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
 
   const handleLogin = () => {
     axios

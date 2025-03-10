@@ -2,9 +2,10 @@ import {StyleSheet, View, FlatList, RefreshControl} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import SearchStockCard from '../components/SearchStockCard';
-import {BASE_URL} from '../frontend-api-service/Base';
-import CustomInput from '../components/CustomInput';
+import SearchStockCard from '../../components/SearchStockCard';
+import {BASE_URL} from '../../frontend-api-service/Base';
+import CustomInput from '../../components/CustomInput';
+import {RouteProp} from '@react-navigation/native';
 
 type SearchStockPropType = {
   instrument_token: string;
@@ -14,7 +15,9 @@ type SearchStockPropType = {
   exchange: string;
 };
 
-const SearchStock = () => {
+type SearchStockRouteProp = RouteProp<{params: {pageNo: number}}, 'params'>;
+
+const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
   const [searchData, setSearchData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [search, setSearch] = useState('');
@@ -56,6 +59,7 @@ const SearchStock = () => {
           value={search}
           setValue={setSearch}
           keyboardType="default"
+          autoFocus={true}
         />
       </View>
       <FlatList
@@ -68,6 +72,7 @@ const SearchStock = () => {
             exchange={item.exchange}
             tradingsymbol={item.tradingsymbol}
             name={item.name}
+            page={route.params.pageNo}
           />
         )}
         keyExtractor={(item: SearchStockPropType) => item.instrument_token}

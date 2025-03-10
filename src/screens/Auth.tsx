@@ -1,14 +1,14 @@
 import React from 'react';
 
 import {createStackNavigator} from '@react-navigation/stack';
-import {RootStackParamList} from '../Types/Types';
+import {AuthRootStackParamList} from '../Types/Types';
 
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import ForgotPassword from './Auth/ForgotPassword';
 import OTPVerification from './Auth/OTPVerification';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<AuthRootStackParamList>();
 
 const Auth = () => {
   return (
