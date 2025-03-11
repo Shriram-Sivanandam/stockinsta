@@ -16,12 +16,14 @@ import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import ScrollableHeadingTabs from '../../components/ScrollableHeadingTabs';
 import {useNavigation, StackActions} from '@react-navigation/native';
+import AddPageModal from '../../components/AddPageModal';
 
 const ExploreMain = () => {
   const [instArr, setInstArr] = useState([]);
-  const [tabnames, setTabNames] = useState([]);
+  const [tabnames, setTabNames] = useState<string[]>([]);
   const [search, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const navigation = useNavigation();
 
@@ -118,7 +120,9 @@ const ExploreMain = () => {
           <CustomTextReg style={styles.explore__title}>
             Watchlists
           </CustomTextReg>
-          <IconsIon name="add-outline" size={30} color="white" />
+          <Pressable onPress={() => setShowModal(true)}>
+            <IconsIon name="add-outline" size={30} color="white" />
+          </Pressable>
         </View>
         <ScrollableHeadingTabs tabnames={tabnames} />
         <Pressable
@@ -127,7 +131,7 @@ const ExploreMain = () => {
             navigation.dispatch(StackActions.push('Search', {pageNo: 1}))
           }>
           <CustomInput
-            icon1="search"
+            icon1="search-outline"
             icon2="filter-outline"
             placeholder="Search and Add Instruments"
             value={search}
@@ -146,6 +150,12 @@ const ExploreMain = () => {
           );
         })}
       </ScrollView>
+      <AddPageModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        tabNames={tabnames}
+        setTabNames={setTabNames}
+      />
     </View>
   );
 };

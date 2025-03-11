@@ -53,7 +53,7 @@ const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
     <View style={styles.SearchStock__mainCont}>
       <View style={styles.SearchStock__searchBar}>
         <CustomInput
-          icon1="search"
+          icon1="search-outline"
           icon2="filter-outline"
           placeholder="Search and Add Instruments"
           value={search}

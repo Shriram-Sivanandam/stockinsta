@@ -20,7 +20,7 @@ type CustomInputPropType = PropsWithChildren<{
 const CustomInput = (props: CustomInputPropType) => {
   return (
     <View style={styles.customInput__mainCont}>
-      <IconsIon name={props.icon1} size={20} color={Colors.primaryText} />
+      <IconsIon name={props.icon1} size={25} color={Colors.primaryText} />
       <TextInput
         style={styles.customInput__input}
         onChangeText={val => props.setValue(val)}
