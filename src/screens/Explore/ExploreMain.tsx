@@ -24,16 +24,16 @@ const ExploreMain = () => {
   const [search, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [selectedPage, setSelectedPage] = useState(0);
 
   const navigation = useNavigation();
 
   const userid = '1000040';
-  const pageno = '1';
 
   useEffect(() => {
     axios
       .get(
-        `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${pageno}`,
+        `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${selectedPage}`,
       )
       .then(res => {
         setInstArr(res.data);
@@ -49,7 +49,7 @@ const ExploreMain = () => {
         setTabNames(onlyTabNames);
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [selectedPage]);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -124,7 +124,11 @@ const ExploreMain = () => {
             <IconsIon name="add-outline" size={30} color="white" />
           </Pressable>
         </View>
-        <ScrollableHeadingTabs tabnames={tabnames} />
+        <ScrollableHeadingTabs
+          tabnames={tabnames}
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
+        />
         <Pressable
           style={styles.explore__searchBar}
           onPress={() =>
