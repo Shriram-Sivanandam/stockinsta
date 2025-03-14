@@ -7,6 +7,7 @@ import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import ForgotPassword from './Auth/ForgotPassword';
 import OTPVerification from './Auth/OTPVerification';
+import Main from './Main';
 
 const Stack = createStackNavigator<AuthRootStackParamList>();
 
@@ -18,6 +19,7 @@ const Auth = () => {
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="OTPVerification" component={OTPVerification} />
+      <Stack.Screen name="Home" component={Main} />
     </Stack.Navigator>
   );
 };

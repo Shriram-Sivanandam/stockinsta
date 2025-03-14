@@ -6,6 +6,7 @@ import {BASE_URL} from '../../frontend-api-service/Base/index';
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 import {
   useNavigation,
@@ -21,11 +22,26 @@ const Login = () => {
 
   const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
 
+  const storeUserSession = async (userid: string, token: string) => {
+    EncryptedStorage.setItem(
+      'user_session',
+      JSON.stringify({
+        userid: userid,
+        token: token,
+      }),
+    )
+      .then(() => {
+        navigation.navigate('Home');
+      })
+      .catch(err => console.log(err));
+  };
+
   const handleLogin = () => {
     axios
       .post(`${BASE_URL}/users/login`, {email, password})
-      .then(() => {
-        navigation.navigate('Home');
+      .then(res => {
+        console.log(res.data.id);
+        storeUserSession(res.data.id, 'token');
       })
       .catch(err => console.log(err));
   };
