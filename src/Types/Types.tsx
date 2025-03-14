@@ -9,5 +9,5 @@ export type AuthRootStackParamList = {
 
 export type ExploreRootStackParamList = {
   ExploreMain: undefined;
-  Search: undefined;
+  Search: {pageNo: number};
 };

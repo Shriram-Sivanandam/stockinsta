@@ -13,7 +13,11 @@ const Explore = () => {
     <Stack.Navigator
       screenOptions={{headerShown: false, animationTypeForReplace: 'pop'}}>
       <Stack.Screen name="ExploreMain" component={ExploreMain} />
-      <Stack.Screen name="Search" component={SearchStock} />
+      <Stack.Screen
+        name="Search"
+        component={SearchStock}
+        initialParams={{pageNo: 0}}
+      />
     </Stack.Navigator>
   );
 };

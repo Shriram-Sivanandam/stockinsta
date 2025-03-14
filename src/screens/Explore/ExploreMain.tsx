@@ -17,6 +17,7 @@ import Colors from '../../constants/Colors';
 import ScrollableHeadingTabs from '../../components/ScrollableHeadingTabs';
 import {useNavigation, StackActions} from '@react-navigation/native';
 import AddPageModal from '../../components/AddPageModal';
+import {useSwipe} from '../../hooks/useSwipe';
 
 const ExploreMain = () => {
   const [instArr, setInstArr] = useState([]);
@@ -25,6 +26,20 @@ const ExploreMain = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedPage, setSelectedPage] = useState(0);
+
+  const onSwipeLeft = () => {
+    if (selectedPage < tabnames.length - 1) {
+      setSelectedPage(selectedPage + 1);
+    }
+  };
+
+  const onSwipeRight = () => {
+    if (selectedPage > 0) {
+      setSelectedPage(selectedPage - 1);
+    }
+  };
+
+  const {onTouchStart, onTouchEnd} = useSwipe(6, onSwipeLeft, onSwipeRight);
 
   const navigation = useNavigation();
 
@@ -81,6 +96,8 @@ const ExploreMain = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.explore__mainCont}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
