@@ -56,7 +56,7 @@ const ExploreMain = () => {
     console.log('Refreshing', BASE_URL);
     axios
       .get(
-        `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${pageno}`,
+        `${BASE_URL}/explore/getinstruments?userid=${userid}&pageno=${selectedPage}`,
       )
       .then(res => {
         setInstArr(res.data);
@@ -65,48 +65,16 @@ const ExploreMain = () => {
       .catch(err => console.log(err));
   };
 
-  const stockcardarr = [
-    {
-      stockName: instArr[0]?.tradingsymbol,
-      stockCompany: 'Apple Inc.',
-      stockIndex: 'NASDAQ',
-      stockPrice: '145.86',
-      stockChange: '+0.86',
-      stockChangePercent: '+0.59%',
-    },
-    {
-      stockName: instArr[1]?.tradingsymbol,
-      stockCompany: 'Tesla Inc.',
-      stockIndex: 'NASDAQ',
-      stockPrice: '654.86',
-      stockChange: '+0.86',
-      stockChangePercent: '+0.59%',
-    },
-    {
-      stockName: instArr[0]?.tradingsymbol,
-      stockCompany: 'Alphabet Inc.',
-      stockIndex: 'NASDAQ',
-      stockPrice: '245.86',
-      stockChange: '+0.86',
-      stockChangePercent: '+0.59%',
-    },
-    {
-      stockName: 'AMZN',
-      stockCompany: 'Amazon Inc.',
-      stockIndex: 'NASDAQ',
-      stockPrice: '345.86',
-      stockChange: '+0.86',
-      stockChangePercent: '+0.59%',
-    },
-    {
-      stockName: 'MSFT',
-      stockCompany: 'Microsoft Inc.',
-      stockIndex: 'NASDAQ',
+  const stockcardarr = instArr.map((inst: any) => {
+    return {
+      tradingsymbol: inst.tradingsymbol,
+      name: 'Microsoft Inc.',
+      exchange: 'NSE',
       stockPrice: '445.86',
       stockChange: '+0.86',
       stockChangePercent: '+0.59%',
-    },
-  ];
+    };
+  });
 
   return (
     <View style={styles.explore__mainCont}>
@@ -132,7 +100,9 @@ const ExploreMain = () => {
         <Pressable
           style={styles.explore__searchBar}
           onPress={() =>
-            navigation.dispatch(StackActions.push('Search', {pageNo: 1}))
+            navigation.dispatch(
+              StackActions.push('Search', {pageNo: selectedPage}),
+            )
           }>
           <CustomInput
             icon1="search-outline"

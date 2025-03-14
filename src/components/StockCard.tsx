@@ -9,9 +9,9 @@ import {CustomTextReg, CustomTextLight} from '../components/CustomText';
 import Colors from '../constants/Colors';
 
 type StockCardPropType = PropsWithChildren<{
-  stockName: string;
-  stockCompany: string;
-  stockIndex: string;
+  tradingsymbol: string;
+  name: string;
+  exchange: string;
   stockPrice: string;
   stockChange: string;
   stockChangePercent: string;
@@ -28,10 +28,10 @@ const StockCard = ({stockCardProps}: {stockCardProps: StockCardPropType}) => {
         onPress={handlePresentModalPress}>
         <View>
           <CustomTextReg style={styles.stockCard__stockName}>
-            {stockCardProps.stockName}
+            {stockCardProps.tradingsymbol}
           </CustomTextReg>
           <CustomTextLight style={styles.stockCard__stockCompany}>
-            {stockCardProps.stockCompany}
+            {stockCardProps.name} ({stockCardProps.exchange})
           </CustomTextLight>
         </View>
         <View style={styles.stockCard__rightCont}>
@@ -44,7 +44,7 @@ const StockCard = ({stockCardProps}: {stockCardProps: StockCardPropType}) => {
         </View>
       </Pressable>
       <CustomBottomSheet
-        title={stockCardProps.stockName}
+        title={stockCardProps.tradingsymbol}
         ref={bottomSheetRef}
       />
     </Fragment>

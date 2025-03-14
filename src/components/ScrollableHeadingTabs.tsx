@@ -18,17 +18,17 @@ const ScrollableHeadingTabs = (props: ScrollableHeadingTabsType) => {
       showsHorizontalScrollIndicator={false}>
       {props.tabnames.map((tabname, i) => {
         return (
-          <Pressable key={i} onPress={() => props.setSelectedPage(i + 1)}>
+          <Pressable key={i} onPress={() => props.setSelectedPage(i)}>
             <CustomTextReg
               style={
-                props.selectedPage === i + 1
+                props.selectedPage === i
                   ? styles.ScrollableHeadingTabs__title
                   : styles.ScrollableHeadingTabs__nontitle
               }>
               {tabname}
             </CustomTextReg>
 
-            {props.selectedPage === i + 1 && (
+            {props.selectedPage === i && (
               <View style={styles.ScrollableHeadingTabs__underline} />
             )}
           </Pressable>
