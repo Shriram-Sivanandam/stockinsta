@@ -18,6 +18,8 @@ import ScrollableHeadingTabs from '../../components/ScrollableHeadingTabs';
 import {useNavigation, StackActions} from '@react-navigation/native';
 import AddPageModal from '../../components/AddPageModal';
 import {useSwipe} from '../../hooks/useSwipe';
+import {useSelector} from 'react-redux';
+import {selectUserID} from '../../redux/userSlice';
 
 const ExploreMain = () => {
   const [instArr, setInstArr] = useState([]);
@@ -26,6 +28,8 @@ const ExploreMain = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedPage, setSelectedPage] = useState(0);
+
+  const userid = useSelector(selectUserID);
 
   const onSwipeLeft = () => {
     if (selectedPage < tabnames.length - 1) {
@@ -42,8 +46,6 @@ const ExploreMain = () => {
   const {onTouchStart, onTouchEnd} = useSwipe(6, onSwipeLeft, onSwipeRight);
 
   const navigation = useNavigation();
-
-  const userid = '1000040';
 
   useEffect(() => {
     axios
@@ -64,7 +66,7 @@ const ExploreMain = () => {
         setTabNames(onlyTabNames);
       })
       .catch(err => console.log(err));
-  }, [selectedPage]);
+  }, [selectedPage, userid]);
 
   const onRefresh = () => {
     setRefreshing(true);

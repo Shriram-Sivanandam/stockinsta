@@ -6,6 +6,8 @@ import {CustomTextReg} from './CustomText';
 import CustomInput from './CustomInput';
 import Colors from '../constants/Colors';
 import {BASE_URL} from '../frontend-api-service/Base';
+import {useSelector} from 'react-redux';
+import {selectUserID} from '../redux/userSlice';
 
 type AddPageModalPropType = {
   showModal: boolean;
@@ -16,7 +18,7 @@ type AddPageModalPropType = {
 
 const AddPageModal = (props: AddPageModalPropType) => {
   const [pageName, setPageName] = useState('');
-  const userid = '1000040';
+  const userid = useSelector(selectUserID);
 
   const handleAddNewPage = () => {
     axios

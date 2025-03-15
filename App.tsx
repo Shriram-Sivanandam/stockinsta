@@ -7,18 +7,21 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import Auth from './src/screens/Auth';
 import Main from './src/screens/Main';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import {useDispatch} from 'react-redux';
+import {setUserID} from './src/redux/userSlice';
 
 function App(): React.JSX.Element {
   const [user, setUser] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     EncryptedStorage.getItem('user_session')
       .then(res => {
-        console.log(res);
         setUser(res === null ? '' : JSON.parse(res).token);
+        dispatch(setUserID(res === null ? '' : JSON.parse(res).userid));
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [dispatch]);
 
   return (
     <GestureHandlerRootView>

@@ -6,6 +6,8 @@ import {CustomTextReg, CustomTextLight} from '../components/CustomText';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors';
 import {BASE_URL} from '../frontend-api-service/Base/index';
+import {useSelector} from 'react-redux';
+import {selectUserID} from '../redux/userSlice';
 
 type SearchStockCardPropType = {
   tradingsymbol: string;
@@ -15,7 +17,7 @@ type SearchStockCardPropType = {
 };
 
 const SearchStockCard = (props: SearchStockCardPropType) => {
-  const userid = '1000040';
+  const userid = useSelector(selectUserID);
   const addInstrument = (tradingsymbol: string, exchange: string) => {
     axios
       .post(`${BASE_URL}/explore/addInstrument`, {
