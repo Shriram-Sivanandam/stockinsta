@@ -3,6 +3,7 @@ import React from 'react';
 
 import Home from './Home';
 import Explore from './Explore';
+import Profile from './Profile';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IconsSimple from 'react-native-vector-icons/SimpleLineIcons';
 import IconsEntypo from 'react-native-vector-icons/Entypo';
@@ -19,9 +20,16 @@ const HomeTabBarIcon = (focused: boolean) =>
 
 const ExploreTabBarIcon = (focused: boolean) =>
   focused ? (
-    <IconsIon name="compass" size={27} color="white" />
+    <IconsIon name="compass" size={30} color="white" />
   ) : (
-    <IconsIon name="compass-outline" size={27} color="white" />
+    <IconsIon name="compass-outline" size={30} color="white" />
+  );
+
+const ProfileTabBarIcon = (focused: boolean) =>
+  focused ? (
+    <IconsIon name="person" size={25} color="white" />
+  ) : (
+    <IconsIon name="person-outline" size={25} color="white" />
   );
 
 const Main = () => {
@@ -46,6 +54,13 @@ const Main = () => {
         component={Explore}
         options={{
           tabBarIcon: tabInfo => ExploreTabBarIcon(tabInfo.focused),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: tabInfo => ProfileTabBarIcon(tabInfo.focused),
         }}
       />
     </Tab.Navigator>
