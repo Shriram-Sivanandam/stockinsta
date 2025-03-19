@@ -20,6 +20,7 @@ import AddPageModal from '../../components/AddPageModal';
 import {useSwipe} from '../../hooks/useSwipe';
 import {useSelector} from 'react-redux';
 import {selectUserID} from '../../redux/userSlice';
+import Toast from 'react-native-toast-message';
 
 const ExploreMain = () => {
   const [instArr, setInstArr] = useState([]);
@@ -55,7 +56,13 @@ const ExploreMain = () => {
       .then(res => {
         setInstArr(res.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching instruments',
+          text2: err,
+        });
+      });
 
     axios
       .get(`${BASE_URL}/explore/getExplorePages?userid=${userid}`)
@@ -65,7 +72,13 @@ const ExploreMain = () => {
         );
         setTabNames(onlyTabNames);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching pages',
+          text2: err,
+        });
+      });
   }, [selectedPage, userid]);
 
   const onRefresh = () => {
@@ -142,7 +155,15 @@ const ExploreMain = () => {
             </Fragment>
           );
         })}
+        {stockcardarr.length === 0 && (
+          <View style={styles.explore__emptyCont}>
+            <CustomTextReg style={styles.explore__emptyText}>
+              Add instruments to your view them
+            </CustomTextReg>
+          </View>
+        )}
       </ScrollView>
+
       <AddPageModal
         showModal={showModal}
         setShowModal={setShowModal}
@@ -186,5 +207,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 36,
     alignItems: 'center',
+  },
+  explore__emptyCont: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 80,
+  },
+  explore__emptyText: {
+    color: Colors.secondaryText,
+    fontSize: 18,
   },
 });

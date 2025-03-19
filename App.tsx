@@ -9,6 +9,7 @@ import Main from './src/screens/Main';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import {useDispatch} from 'react-redux';
 import {setUserID} from './src/redux/userSlice';
+import Toast from 'react-native-toast-message';
 
 function App(): React.JSX.Element {
   const [user, setUser] = useState('');
@@ -32,6 +33,7 @@ function App(): React.JSX.Element {
           </NavigationContainer>
         </SafeAreaView>
       </BottomSheetModalProvider>
+      <Toast topOffset={20} />
     </GestureHandlerRootView>
   );
 }
