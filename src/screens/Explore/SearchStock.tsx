@@ -6,6 +6,7 @@ import SearchStockCard from '../../components/SearchStockCard';
 import {BASE_URL} from '../../frontend-api-service/Base';
 import CustomInput from '../../components/CustomInput';
 import {RouteProp} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 type SearchStockPropType = {
   instrument_token: string;
@@ -33,6 +34,13 @@ const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
         .get(`${BASE_URL}/explore/searchInstrument?searchParam=${search}`)
         .then(res => {
           setSearchData(res.data);
+        })
+        .catch(err => {
+          Toast.show({
+            type: 'error',
+            text1: 'Cannot find insturment',
+            text2: err,
+          });
         });
     }
   }, [search]);
@@ -46,7 +54,14 @@ const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
         setSearchData(res.data);
         setRefreshing(false);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setRefreshing(false);
+        Toast.show({
+          type: 'error',
+          text1: 'Cannot find insturment',
+          text2: err,
+        });
+      });
   };
 
   return (

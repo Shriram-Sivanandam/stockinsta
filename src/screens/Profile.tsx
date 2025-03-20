@@ -6,9 +6,9 @@ import Colors from '../constants/Colors';
 import {useDispatch} from 'react-redux';
 import {setUserID} from '../redux/userSlice';
 import EncryptedStorage from 'react-native-encrypted-storage';
-
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {AuthRootStackParamList} from '../Types/Types';
+import Toast from 'react-native-toast-message';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,13 @@ const Profile = () => {
         dispatch(setUserID(''));
         navigation.navigate('Login');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Could not log out',
+          text2: err,
+        });
+      });
   };
   return (
     <View style={styles.profile__mainCont}>

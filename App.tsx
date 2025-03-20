@@ -21,7 +21,13 @@ function App(): React.JSX.Element {
         setUser(res === null ? '' : JSON.parse(res).token);
         dispatch(setUserID(res === null ? '' : JSON.parse(res).userid));
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error in reading user session',
+          text2: err,
+        });
+      });
   }, [dispatch]);
 
   return (

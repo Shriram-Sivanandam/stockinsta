@@ -14,6 +14,7 @@ import {
   StackActions,
 } from '@react-navigation/native';
 import {AuthRootStackParamList} from '../../Types/Types';
+import Toast from 'react-native-toast-message';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -33,7 +34,13 @@ const Login = () => {
       .then(() => {
         navigation.navigate('Home');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error in storing user session',
+          text2: err,
+        });
+      });
   };
 
   const handleLogin = () => {
@@ -43,7 +50,13 @@ const Login = () => {
         console.log(res.data.id);
         storeUserSession(res.data.id, 'token');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Userid or password is incorrect',
+          text2: err,
+        });
+      });
   };
 
   return (

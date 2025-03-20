@@ -92,7 +92,14 @@ const ExploreMain = () => {
         setInstArr(res.data);
         setRefreshing(false);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        setRefreshing(false);
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching instruments',
+          text2: err,
+        });
+      });
   };
 
   const stockcardarr = instArr.map((inst: any) => {

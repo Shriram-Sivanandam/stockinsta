@@ -7,6 +7,7 @@ import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import {BASE_URL} from '../../frontend-api-service/Base/index';
 import {useNavigation, StackActions} from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +22,13 @@ const Signup = () => {
       .then(() => {
         navigation.dispatch(StackActions.push('OTPVerification'));
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'User already exists',
+          text2: err,
+        });
+      });
   };
 
   return (

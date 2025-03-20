@@ -8,6 +8,7 @@ import Colors from '../constants/Colors';
 import {BASE_URL} from '../frontend-api-service/Base';
 import {useSelector} from 'react-redux';
 import {selectUserID} from '../redux/userSlice';
+import Toast from 'react-native-toast-message';
 
 type AddPageModalPropType = {
   showModal: boolean;
@@ -28,7 +29,13 @@ const AddPageModal = (props: AddPageModalPropType) => {
         props.setShowModal(false);
         props.setTabNames([...props.tabNames, pageName]);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Could not add page',
+          text2: err,
+        });
+      });
   };
 
   return (

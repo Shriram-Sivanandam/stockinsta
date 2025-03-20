@@ -8,6 +8,7 @@ import Colors from '../constants/Colors';
 import {BASE_URL} from '../frontend-api-service/Base/index';
 import {useSelector} from 'react-redux';
 import {selectUserID} from '../redux/userSlice';
+import Toast from 'react-native-toast-message';
 
 type SearchStockCardPropType = {
   tradingsymbol: string;
@@ -29,7 +30,13 @@ const SearchStockCard = (props: SearchStockCardPropType) => {
       .then(res => {
         console.log(res.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Could not add instrument',
+          text2: err,
+        });
+      });
   };
 
   return (
