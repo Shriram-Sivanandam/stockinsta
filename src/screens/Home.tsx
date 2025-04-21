@@ -1,27 +1,63 @@
 import {View, FlatList, RefreshControl, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PostCard from '../components/PostCard';
 
 import {NavigationProp} from '@react-navigation/native';
 import {PostCardPropType} from '../Types/Types';
+import axios from 'axios';
+import {BASE_URL} from '../frontend-api-service/Base/index';
+import {useSelector} from 'react-redux';
+import {selectUserID} from '../redux/userSlice';
+import Toast from 'react-native-toast-message';
 
 const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
   const [refreshing, setRefreshing] = useState(false);
+  const userid = useSelector(selectUserID);
+  const [posts, setPosts] = useState([]);
 
   const onRefresh = () => {
     setRefreshing(true);
-    console.log('Refreshing');
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
+    axios
+      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
+      .then(res => {
+        setPosts(res.data);
+        console.log('helllasdflj', res.data);
+        setRefreshing(false);
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching posts',
+          text2: err,
+        });
+        setRefreshing(false);
+      });
   };
+
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
+      .then(res => {
+        setPosts(res.data);
+        console.log('helllasdflj', res.data);
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching posts',
+          text2: err,
+        });
+      });
+  }, [userid]);
 
   const postCardProps = [
     {
       entityId: 21212,
       userName: 'One there',
-      logoImage: 'https://reactjs.org/logo-og.png',
-      postImage: 'https://reactjs.org/logo-og.png',
+      logoImage:
+        'https://0137-110-226-179-180.ngrok-free.app/uploads/1745139724773.jpg',
+      postImage:
+        'https:\\0137-110-226-179-180.ngrok-free.app\\uploads\\1745139781319.jpg',
       postDescription: 'This is a post description',
       isLiked: true,
       isSaved: true,
@@ -30,7 +66,8 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
     {
       entityId: 21213,
       userName: 'Two there',
-      logoImage: 'https://reactjs.org/logo-og.png',
+      logoImage:
+        'https://0137-110-226-179-180.ngrok-free.app/uploads/1745256789774.jpg',
       postImage: 'https://reactjs.org/logo-og.png',
       postDescription: 'This is a post description',
       isLiked: false,
