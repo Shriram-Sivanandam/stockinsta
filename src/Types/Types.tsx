@@ -1,4 +1,4 @@
-import type {PropsWithChildren} from 'react';
+// import type {PropsWithChildren} from 'react';
 
 export type AuthRootStackParamList = {
   Home: undefined;
@@ -14,13 +14,26 @@ export type ExploreRootStackParamList = {
   Search: {pageNo: number};
 };
 
-export type PostCardPropType = PropsWithChildren<{
-  entityId: number;
-  userName: string;
-  logoImage: string;
-  postImage: string;
-  postDescription: string;
+// export type PostCardPropType = PropsWithChildren<{
+//   entityId: number;
+//   userName: string;
+//   logoImage: string;
+//   postImage: string;
+//   postDescription: string;
+//   isLiked: boolean;
+//   isSaved: boolean;
+//   likes: number;
+// }>;
+
+export type PostCardPropType = {
+  entity_id: number;
+  userid: number;
+  username: string;
+  image_path: string;
+  dp_path: string;
+  caption: string;
+  created_at: string;
   isLiked: boolean;
   isSaved: boolean;
   likes: number;
-}>;
+};

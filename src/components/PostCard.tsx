@@ -24,20 +24,20 @@ const PostCard = ({
         <View style={styles.postCard__titleContainer}>
           <View style={styles.postCard__logoContainer}>
             <Image
-              source={{uri: postCardProps.logoImage}}
+              source={{uri: postCardProps.dp_path}}
               style={styles.postCard__logo}
             />
             <CustomTextReg
               style={styles.postCard__userName}
               onPress={() => navigation.navigate('Explore')}>
-              {postCardProps.userName}
+              {postCardProps.username}
             </CustomTextReg>
           </View>
           <Icons name="dots-three-vertical" size={15} color="white" />
         </View>
         <View>
           <Image
-            source={{uri: postCardProps.logoImage}}
+            source={{uri: postCardProps.image_path}}
             style={styles.postCard__postImage}
           />
         </View>
@@ -73,7 +73,7 @@ const PostCard = ({
           )}
         </View>
         <CustomTextReg style={styles.postCard__desc}>
-          {postCardProps.userName} - {postCardProps.postDescription}
+          {postCardProps.username} - {postCardProps.caption}
         </CustomTextReg>
       </View>
     </SafeAreaView>

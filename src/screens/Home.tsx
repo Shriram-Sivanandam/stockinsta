@@ -20,8 +20,8 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
     axios
       .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
       .then(res => {
-        setPosts(res.data);
-        console.log('helllasdflj', res.data);
+        setPosts(res.data.posts);
+        console.log('helllasdflj', res.data.posts);
         setRefreshing(false);
       })
       .catch(err => {
@@ -30,6 +30,7 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
           text1: 'Error fetching posts',
           text2: err,
         });
+        console.log(err);
         setRefreshing(false);
       });
   };
@@ -38,8 +39,7 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
     axios
       .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
       .then(res => {
-        setPosts(res.data);
-        console.log('helllasdflj', res.data);
+        setPosts(res.data.posts);
       })
       .catch(err => {
         Toast.show({
@@ -50,51 +50,50 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
       });
   }, [userid]);
 
-  const postCardProps = [
-    {
-      entityId: 21212,
-      userName: 'One there',
-      logoImage:
-        'https://0137-110-226-179-180.ngrok-free.app/uploads/1745139724773.jpg',
-      postImage:
-        'https:\\0137-110-226-179-180.ngrok-free.app\\uploads\\1745139781319.jpg',
-      postDescription: 'This is a post description',
-      isLiked: true,
-      isSaved: true,
-      likes: 4500,
-    },
-    {
-      entityId: 21213,
-      userName: 'Two there',
-      logoImage:
-        'https://0137-110-226-179-180.ngrok-free.app/uploads/1745256789774.jpg',
-      postImage: 'https://reactjs.org/logo-og.png',
-      postDescription: 'This is a post description',
-      isLiked: false,
-      isSaved: false,
-      likes: 4500,
-    },
-    {
-      entityId: 21214,
-      userName: 'Three there',
-      logoImage: 'https://reactjs.org/logo-og.png',
-      postImage: 'https://reactjs.org/logo-og.png',
-      postDescription: 'This is a post description',
-      isLiked: true,
-      isSaved: true,
-      likes: 4500,
-    },
-    {
-      entityId: 21215,
-      userName: 'Four there',
-      logoImage: 'https://reactjs.org/logo-og.png',
-      postImage: 'https://reactjs.org/logo-og.png',
-      postDescription: 'This is a post description',
-      isLiked: true,
-      isSaved: true,
-      likes: 4500,
-    },
-  ];
+  // const postCardProps = [
+  //   {
+  //     entityId: 21212,
+  //     userName: 'One there',
+  //     logoImage: 'https://reactjs.org/logo-og.png',
+  //     postImage:
+  //       'https://2e00-110-226-179-180.ngrok-free.app/uploads/1745139724700.jpg',
+  //     postDescription: 'This is a post description',
+  //     isLiked: true,
+  //     isSaved: true,
+  //     likes: 4500,
+  //   },
+  //   {
+  //     entityId: 21213,
+  //     userName: 'Two there',
+  //     logoImage: 'https://reactjs.org/logo-og.png',
+  //     postImage:
+  //       'https://2e00-110-226-179-180.ngrok-free.app/uploads/1745340462151.jpg',
+  //     postDescription: 'This is a post description',
+  //     isLiked: false,
+  //     isSaved: false,
+  //     likes: 4500,
+  //   },
+  //   {
+  //     entityId: 21214,
+  //     userName: 'Three there',
+  //     logoImage: 'https://reactjs.org/logo-og.png',
+  //     postImage: 'https://reactjs.org/logo-og.png',
+  //     postDescription: 'This is a post description',
+  //     isLiked: true,
+  //     isSaved: true,
+  //     likes: 4500,
+  //   },
+  //   {
+  //     entityId: 21215,
+  //     userName: 'Four there',
+  //     logoImage: 'https://reactjs.org/logo-og.png',
+  //     postImage: 'https://reactjs.org/logo-og.png',
+  //     postDescription: 'This is a post description',
+  //     isLiked: true,
+  //     isSaved: true,
+  //     likes: 4500,
+  //   },
+  // ];
   return (
     <View style={styles.home__mainCont}>
       {/* {postCardProps.map((postCardProp, i) => {
@@ -108,11 +107,11 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        data={postCardProps}
+        data={posts}
         renderItem={({item}: {item: PostCardPropType}) => (
           <PostCard navigation={navigation} postCardProps={item} />
         )}
-        keyExtractor={(item: PostCardPropType) => item.entityId.toString()}
+        keyExtractor={(item: PostCardPropType) => item.entity_id.toString()}
       />
     </View>
   );
