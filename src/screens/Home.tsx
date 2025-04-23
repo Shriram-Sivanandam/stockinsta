@@ -50,66 +50,19 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
       });
   }, [userid]);
 
-  // const postCardProps = [
-  //   {
-  //     entityId: 21212,
-  //     userName: 'One there',
-  //     logoImage: 'https://reactjs.org/logo-og.png',
-  //     postImage:
-  //       'https://2e00-110-226-179-180.ngrok-free.app/uploads/1745139724700.jpg',
-  //     postDescription: 'This is a post description',
-  //     isLiked: true,
-  //     isSaved: true,
-  //     likes: 4500,
-  //   },
-  //   {
-  //     entityId: 21213,
-  //     userName: 'Two there',
-  //     logoImage: 'https://reactjs.org/logo-og.png',
-  //     postImage:
-  //       'https://2e00-110-226-179-180.ngrok-free.app/uploads/1745340462151.jpg',
-  //     postDescription: 'This is a post description',
-  //     isLiked: false,
-  //     isSaved: false,
-  //     likes: 4500,
-  //   },
-  //   {
-  //     entityId: 21214,
-  //     userName: 'Three there',
-  //     logoImage: 'https://reactjs.org/logo-og.png',
-  //     postImage: 'https://reactjs.org/logo-og.png',
-  //     postDescription: 'This is a post description',
-  //     isLiked: true,
-  //     isSaved: true,
-  //     likes: 4500,
-  //   },
-  //   {
-  //     entityId: 21215,
-  //     userName: 'Four there',
-  //     logoImage: 'https://reactjs.org/logo-og.png',
-  //     postImage: 'https://reactjs.org/logo-og.png',
-  //     postDescription: 'This is a post description',
-  //     isLiked: true,
-  //     isSaved: true,
-  //     likes: 4500,
-  //   },
-  // ];
   return (
     <View style={styles.home__mainCont}>
-      {/* {postCardProps.map((postCardProp, i) => {
-        return (
-          <Fragment key={i}>
-            <PostCard navigation={navigation} postCardProps={postCardProp} />
-          </Fragment>
-        );
-      })} */}
       <FlatList
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         data={posts}
         renderItem={({item}: {item: PostCardPropType}) => (
-          <PostCard navigation={navigation} postCardProps={item} />
+          <PostCard
+            navigation={navigation}
+            postCardProps={item}
+            setPosts={setPosts}
+          />
         )}
         keyExtractor={(item: PostCardPropType) => item.entity_id.toString()}
       />

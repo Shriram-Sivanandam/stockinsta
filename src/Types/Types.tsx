@@ -14,17 +14,6 @@ export type ExploreRootStackParamList = {
   Search: {pageNo: number};
 };
 
-// export type PostCardPropType = PropsWithChildren<{
-//   entityId: number;
-//   userName: string;
-//   logoImage: string;
-//   postImage: string;
-//   postDescription: string;
-//   isLiked: boolean;
-//   isSaved: boolean;
-//   likes: number;
-// }>;
-
 export type PostCardPropType = {
   entity_id: number;
   userid: number;

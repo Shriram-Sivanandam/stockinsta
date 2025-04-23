@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SafeAreaView, View, Image, StyleSheet} from 'react-native';
+import {SafeAreaView, View, Image, StyleSheet, Pressable} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
 import IconsComm from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconsIon from 'react-native-vector-icons/Ionicons';
@@ -10,14 +10,56 @@ import {PostCardPropType} from '../Types/Types';
 
 import Colors from '../constants/Colors';
 import {CustomTextReg} from './CustomText';
+import axios from 'axios';
+import {BASE_URL} from '../frontend-api-service/Base';
 
 const PostCard = ({
   navigation,
   postCardProps,
+  setPosts,
 }: {
   navigation: NavigationProp<any>;
   postCardProps: PostCardPropType;
+  setPosts: React.Dispatch<React.SetStateAction<any>>;
 }) => {
+  const onLikePress = () => {
+    const likeData = {
+      userid: postCardProps.userid,
+      entity_id: postCardProps.entity_id,
+    };
+    if (postCardProps.isLiked) {
+      axios
+        .post(`${BASE_URL}/posts/removelike`, likeData)
+        .then(() => {
+          setPosts((prevPosts: [PostCardPropType]) =>
+            prevPosts.map((post: PostCardPropType) =>
+              post.entity_id === postCardProps.entity_id
+                ? {...post, likes: post.likes - 1, isLiked: false}
+                : post,
+            ),
+          );
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } else {
+      axios
+        .post(`${BASE_URL}/posts/addlike`, likeData)
+        .then(() => {
+          setPosts((prevPosts: [PostCardPropType]) =>
+            prevPosts.map((post: PostCardPropType) =>
+              post.entity_id === postCardProps.entity_id
+                ? {...post, likes: post.likes + 1, isLiked: true}
+                : post,
+            ),
+          );
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.postCard__mainContainer}>
@@ -43,19 +85,21 @@ const PostCard = ({
         </View>
         <View style={styles.postCard__iconsCont}>
           <View style={styles.postCard__likesCont}>
-            {postCardProps.isLiked ? (
-              <IconsIon
-                name="arrow-up-circle-sharp"
-                size={32}
-                color={Colors.redColor}
-              />
-            ) : (
-              <IconsIon
-                name="arrow-up-circle-outline"
-                size={32}
-                color="white"
-              />
-            )}
+            <Pressable onPress={onLikePress}>
+              {postCardProps.isLiked ? (
+                <IconsIon
+                  name="arrow-up-circle-sharp"
+                  size={32}
+                  color={Colors.redColor}
+                />
+              ) : (
+                <IconsIon
+                  name="arrow-up-circle-outline"
+                  size={32}
+                  color="white"
+                />
+              )}
+            </Pressable>
 
             <CustomTextReg style={styles.postCard__iconsText}>
               {postCardProps.likes}
