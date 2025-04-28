@@ -24,8 +24,7 @@ const AddPageModal = (props: AddPageModalPropType) => {
   const handleAddNewPage = () => {
     axios
       .post(`${BASE_URL}/explore/addExplorePage`, {userid, pagename: pageName})
-      .then(res => {
-        console.log(res.data);
+      .then(() => {
         props.setShowModal(false);
         props.setTabNames([...props.tabNames, pageName]);
       })

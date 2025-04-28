@@ -16,7 +16,6 @@ const Signup = () => {
   const navigation = useNavigation();
 
   const handleSignUp = () => {
-    console.log(email, password);
     axios
       .post(`${BASE_URL}/users/registerUser`, {email, password})
       .then(() => {

@@ -7,7 +7,6 @@ export const userSlice = createSlice({
   },
   reducers: {
     setUserID: (state, action) => {
-      console.log('Setting User ID:', action.payload);
       state.userid = action.payload;
     },
   },

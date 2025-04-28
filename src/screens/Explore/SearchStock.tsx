@@ -47,7 +47,6 @@ const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    console.log('Refreshing', BASE_URL);
     axios
       .get(`${BASE_URL}/explore/searchInstrument?searchParam=${search}`)
       .then(res => {

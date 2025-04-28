@@ -1,7 +1,5 @@
 import React, {forwardRef, useMemo, useCallback, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import OHLCBar from './OHLCBar';
-
 import {
   BottomSheetModal,
   BottomSheetBackdrop,
@@ -38,7 +36,7 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
     const onPostComment = () => {
       axios
         .post(`${BASE_URL}/posts/addcomment`, {
-          entity_id: props.entity_id,
+          entity_id: props.comments,
           userid: userid,
           comment: comment,
         })
@@ -61,27 +59,6 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
         backgroundStyle={styles.commentsBottomSheet__background}
         handleIndicatorStyle={styles.commentsBottomSheet__handle}>
         <BottomSheetScrollView>
-          <View style={styles.commentsBottomSheet__mainCont}>
-            <CustomTextReg style={styles.commentsBottomSheet__stockName}>
-              ONGC
-            </CustomTextReg>
-            <CustomTextLight>
-              <CustomTextLight style={styles.commentsBottomSheet__subTitle}>
-                NSE
-              </CustomTextLight>
-              <CustomTextLight
-                style={styles.commentsBottomSheet__stockChangeNeg}>
-                {' '}
-                4036.45
-              </CustomTextLight>
-              <CustomTextLight style={styles.commentsBottomSheet__subTitle}>
-                {' '}
-                +15.44(+3.43%)
-              </CustomTextLight>
-            </CustomTextLight>
-            <View style={styles.commentsBottomSheet__borderLine} />
-            <OHLCBar />
-          </View>
           <View style={styles.commentsBottomSheet__searchBar}>
             <CustomInput
               icon2="send-outline"
@@ -107,29 +84,6 @@ const styles = StyleSheet.create({
   },
   commentsBottomSheet__handle: {
     backgroundColor: Colors.secondaryBackground,
-  },
-  commentsBottomSheet__mainCont: {
-    width: '90%',
-    alignSelf: 'center',
-  },
-  commentsBottomSheet__stockName: {
-    fontSize: 20,
-  },
-  commentsBottomSheet__subTitle: {
-    fontSize: 15,
-  },
-  commentsBottomSheet__stockChangePos: {
-    color: Colors.greenColor,
-    fontSize: 15,
-  },
-  commentsBottomSheet__stockChangeNeg: {
-    color: Colors.redColor,
-    fontSize: 15,
-  },
-  commentsBottomSheet__borderLine: {
-    borderBottomWidth: 1,
-    borderColor: Colors.secondaryBackground,
-    marginVertical: 15,
   },
   commentsBottomSheet__searchBar: {
     marginTop: 30,

@@ -21,7 +21,6 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
       .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
       .then(res => {
         setPosts(res.data.posts);
-        console.log('helllasdflj', res.data.posts);
         setRefreshing(false);
       })
       .catch(err => {

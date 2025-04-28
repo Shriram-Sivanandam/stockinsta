@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 
 import {SafeAreaView, View, Image, StyleSheet, Pressable} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -6,7 +6,7 @@ import IconsComm from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 
 import {NavigationProp} from '@react-navigation/native';
-import {PostCardPropType} from '../Types/Types';
+import {PostCardPropType, CommentType} from '../Types/Types';
 
 import Colors from '../constants/Colors';
 import {CustomTextReg} from './CustomText';
@@ -25,13 +25,14 @@ const PostCard = ({
   setPosts: React.Dispatch<React.SetStateAction<any>>;
 }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const [comments, setComments] = useState<CommentType[]>([]);
 
   const onCommentPress = () => {
     axios
       .get(`${BASE_URL}/posts/getcomments?entity_id=${postCardProps.entity_id}`)
       .then(res => {
         bottomSheetRef.current?.present();
-        console.log('this is the result on the new keyboard', res.data);
+        setComments(res.data.comments);
       })
       .catch(err => {
         console.log(err);
@@ -139,7 +140,8 @@ const PostCard = ({
         </CustomTextReg>
       </View>
       <CommentsBottomSheet
-        entity_id={postCardProps.entity_id}
+        comments={comments}
+        setComments={setComments}
         ref={bottomSheetRef}
       />
     </SafeAreaView>

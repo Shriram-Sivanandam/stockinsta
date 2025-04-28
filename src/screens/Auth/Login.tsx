@@ -47,7 +47,6 @@ const Login = () => {
     axios
       .post(`${BASE_URL}/users/login`, {email, password})
       .then(res => {
-        console.log(res.data.id);
         storeUserSession(res.data.id, 'token');
       })
       .catch(err => {

@@ -27,6 +27,17 @@ export type PostCardPropType = {
   likes: number;
 };
 
-export type CommentsBottomSheetPropType = {
+export type CommentType = {
+  comment_id: number;
   entity_id: number;
+  userid: number;
+  comment: string;
+  created_at: string;
+  username: string;
+  dp_path: string;
+};
+
+export type CommentsBottomSheetPropType = {
+  comments: CommentType[];
+  setComments: (comments: CommentType[]) => void;
 };
