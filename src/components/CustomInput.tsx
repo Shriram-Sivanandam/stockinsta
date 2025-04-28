@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View, Pressable} from 'react-native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 
@@ -6,7 +6,7 @@ import IconsIon from 'react-native-vector-icons/Ionicons';
 import Colors from '../constants/Colors';
 
 type CustomInputPropType = PropsWithChildren<{
-  icon1: string;
+  icon1?: string;
   icon2?: string;
   placeholder: string;
   password?: boolean;
@@ -15,12 +15,18 @@ type CustomInputPropType = PropsWithChildren<{
   value: string;
   keyboardType: 'default' | 'number-pad' | 'numeric' | 'phone-pad';
   setValue: (value: string) => void;
+  onPressIcon1?: () => void;
+  onPressIcon2?: () => void;
 }>;
 
 const CustomInput = (props: CustomInputPropType) => {
   return (
     <View style={styles.customInput__mainCont}>
-      <IconsIon name={props.icon1} size={25} color={Colors.primaryText} />
+      {props.icon1 && (
+        <Pressable onPress={props.onPressIcon1}>
+          <IconsIon name={props.icon1} size={25} color={Colors.primaryText} />
+        </Pressable>
+      )}
       <TextInput
         style={styles.customInput__input}
         onChangeText={val => props.setValue(val)}
@@ -32,7 +38,9 @@ const CustomInput = (props: CustomInputPropType) => {
         autoFocus={props.autoFocus}
       />
       {props.icon2 && (
-        <IconsIon name={props.icon2} size={20} color={Colors.primaryText} />
+        <Pressable onPress={props.onPressIcon2}>
+          <IconsIon name={props.icon2} size={20} color={Colors.primaryText} />
+        </Pressable>
       )}
     </View>
   );

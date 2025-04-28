@@ -1,10 +1,9 @@
 import React, {Fragment, useRef} from 'react';
 import type {PropsWithChildren} from 'react';
 
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
-
 import {Pressable, StyleSheet, View} from 'react-native';
 import CustomBottomSheet from '../components/CustomBottomSheet';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {CustomTextReg, CustomTextLight} from '../components/CustomText';
 import Colors from '../constants/Colors';
 

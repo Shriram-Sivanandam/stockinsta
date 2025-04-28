@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
 import {SafeAreaView, View, Image, StyleSheet, Pressable} from 'react-native';
 import Icons from 'react-native-vector-icons/Entypo';
@@ -12,6 +12,8 @@ import Colors from '../constants/Colors';
 import {CustomTextReg} from './CustomText';
 import axios from 'axios';
 import {BASE_URL} from '../frontend-api-service/Base';
+import CommentsBottomSheet from './CommentsBottomSheet';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
 
 const PostCard = ({
   navigation,
@@ -22,6 +24,20 @@ const PostCard = ({
   postCardProps: PostCardPropType;
   setPosts: React.Dispatch<React.SetStateAction<any>>;
 }) => {
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
+
+  const onCommentPress = () => {
+    axios
+      .get(`${BASE_URL}/posts/getcomments?entity_id=${postCardProps.entity_id}`)
+      .then(res => {
+        bottomSheetRef.current?.present();
+        console.log('this is the result on the new keyboard', res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const onLikePress = () => {
     const likeData = {
       userid: postCardProps.userid,
@@ -105,7 +121,9 @@ const PostCard = ({
               {postCardProps.likes}
             </CustomTextReg>
           </View>
-          <IconsComm name="comment-outline" size={28} color="white" />
+          <Pressable onPress={onCommentPress}>
+            <IconsComm name="comment-outline" size={28} color="white" />
+          </Pressable>
           {postCardProps.isSaved ? (
             <IconsIon
               name="notifications"
@@ -120,6 +138,10 @@ const PostCard = ({
           {postCardProps.username} - {postCardProps.caption}
         </CustomTextReg>
       </View>
+      <CommentsBottomSheet
+        entity_id={postCardProps.entity_id}
+        ref={bottomSheetRef}
+      />
     </SafeAreaView>
   );
 };

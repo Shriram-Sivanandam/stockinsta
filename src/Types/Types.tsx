@@ -26,3 +26,7 @@ export type PostCardPropType = {
   isSaved: boolean;
   likes: number;
 };
+
+export type CommentsBottomSheetPropType = {
+  entity_id: number;
+};
