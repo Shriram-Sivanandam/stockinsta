@@ -17,11 +17,12 @@ type CustomInputPropType = PropsWithChildren<{
   setValue: (value: string) => void;
   onPressIcon1?: () => void;
   onPressIcon2?: () => void;
+  mainContStyles?: any;
 }>;
 
 const CustomInput = (props: CustomInputPropType) => {
   return (
-    <View style={styles.customInput__mainCont}>
+    <View style={[styles.customInput__mainCont, props.mainContStyles]}>
       {props.icon1 && (
         <Pressable onPress={props.onPressIcon1}>
           <IconsIon name={props.icon1} size={25} color={Colors.primaryText} />

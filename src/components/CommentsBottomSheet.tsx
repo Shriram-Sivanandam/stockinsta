@@ -1,24 +1,25 @@
 import React, {forwardRef, useMemo, useCallback, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import {
   BottomSheetModal,
   BottomSheetBackdrop,
-  BottomSheetScrollView,
+  //BottomSheetScrollView,
+  BottomSheetFlatList,
 } from '@gorhom/bottom-sheet';
 import Colors from '../constants/Colors';
-import {CustomTextReg, CustomTextLight} from './CustomText';
-import {CommentsBottomSheetPropType} from '../Types/Types';
+import {CommentsBottomSheetPropType, CommentType} from '../Types/Types';
 import CustomInput from './CustomInput';
 import axios from 'axios';
 import {BASE_URL} from '../frontend-api-service/Base';
 import {useSelector} from 'react-redux';
 import {selectUserID} from '../redux/userSlice';
+import CommentCard from './CommentCard';
 
 type Ref = BottomSheetModal;
 
 const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
   (props, ref) => {
-    const snapPoints = useMemo(() => ['65%', '90%'], []);
+    const snapPoints = useMemo(() => ['55%', '80%'], []);
     const [comment, setComment] = useState('');
     const userid = useSelector(selectUserID);
 
@@ -53,13 +54,27 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
       <BottomSheetModal
         ref={ref}
         enablePanDownToClose={true}
-        index={0}
+        index={1}
         snapPoints={snapPoints}
         backdropComponent={renderBackdrop}
         backgroundStyle={styles.commentsBottomSheet__background}
-        handleIndicatorStyle={styles.commentsBottomSheet__handle}>
-        <BottomSheetScrollView>
+        handleIndicatorStyle={styles.commentsBottomSheet__handle}
+        keyboardBlurBehavior="restore">
+        {/* <BottomSheetScrollView> */}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1}}
+          keyboardVerticalOffset={80} // Adjust depending on header height
+        >
           <View style={styles.commentsBottomSheet__searchBar}>
+            <BottomSheetFlatList
+              data={props.comments}
+              renderItem={({item}: {item: CommentType}) => {
+                return <CommentCard comment={item} />;
+              }}
+              keyExtractor={(item: CommentType) => item.entity_id.toString()}
+              contentContainerStyle={{paddingBottom: 60}}
+            />
             <CustomInput
               icon2="send-outline"
               placeholder="Search and Add Instruments"
@@ -68,9 +83,11 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
               keyboardType="default"
               autoFocus={false}
               onPressIcon2={onPostComment}
+              mainContStyles={styles.mainContStyles}
             />
           </View>
-        </BottomSheetScrollView>
+        </KeyboardAvoidingView>
+        {/* </BottomSheetScrollView> */}
       </BottomSheetModal>
     );
   },
@@ -90,5 +107,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '90%',
     alignSelf: 'center',
+  },
+  mainContStyles: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderTopWidth: 1,
   },
 });
