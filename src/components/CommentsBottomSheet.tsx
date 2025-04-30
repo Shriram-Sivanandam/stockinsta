@@ -20,7 +20,7 @@ type Ref = BottomSheetModal;
 const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
   (props, ref) => {
     const snapPoints = useMemo(() => ['55%', '80%'], []);
-    const [comment, setComment] = useState('');
+    const [postComment, setPostComment] = useState('');
     const userid = useSelector(selectUserID);
 
     const renderBackdrop = useCallback(
@@ -37,13 +37,12 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
     const onPostComment = () => {
       axios
         .post(`${BASE_URL}/posts/addcomment`, {
-          entity_id: props.comments,
+          entity_id: props.entity_id,
           userid: userid,
-          comment: comment,
+          comment: postComment,
         })
-        .then(res => {
-          console.log('this is the resulttttt on the new keyboard', res.data);
-          setComment('');
+        .then(() => {
+          setPostComment('');
         })
         .catch(err => {
           console.log(err);
@@ -66,7 +65,7 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
           style={{flex: 1}}
           keyboardVerticalOffset={80} // Adjust depending on header height
         >
-          <View style={styles.commentsBottomSheet__searchBar}>
+          <View style={styles.commentsBottomSheet__mainCont}>
             <BottomSheetFlatList
               data={props.comments}
               renderItem={({item}: {item: CommentType}) => {
@@ -78,8 +77,8 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
             <CustomInput
               icon2="send-outline"
               placeholder="Search and Add Instruments"
-              value={comment}
-              setValue={setComment}
+              value={postComment}
+              setValue={setPostComment}
               keyboardType="default"
               autoFocus={false}
               onPressIcon2={onPostComment}
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
   commentsBottomSheet__handle: {
     backgroundColor: Colors.secondaryBackground,
   },
-  commentsBottomSheet__searchBar: {
+  commentsBottomSheet__mainCont: {
     marginTop: 30,
     marginBottom: 10,
     width: '90%',

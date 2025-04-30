@@ -43,8 +43,6 @@ const CreatePost = () => {
       type: 'image/jpeg',
     });
 
-    console.log('hellooo', formData);
-
     try {
       formData.append('userid', userid);
       formData.append('caption', caption);

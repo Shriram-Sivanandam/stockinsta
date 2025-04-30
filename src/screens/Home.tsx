@@ -29,7 +29,6 @@ const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
           text1: 'Error fetching posts',
           text2: err,
         });
-        console.log(err);
         setRefreshing(false);
       });
   };

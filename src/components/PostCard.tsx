@@ -143,6 +143,7 @@ const PostCard = ({
         comments={comments}
         setComments={setComments}
         ref={bottomSheetRef}
+        entity_id={postCardProps.entity_id}
       />
     </SafeAreaView>
   );

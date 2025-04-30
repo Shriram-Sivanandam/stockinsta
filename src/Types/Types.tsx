@@ -40,4 +40,5 @@ export type CommentType = {
 export type CommentsBottomSheetPropType = {
   comments: CommentType[];
   setComments: (comments: CommentType[]) => void;
+  entity_id: number;
 };
