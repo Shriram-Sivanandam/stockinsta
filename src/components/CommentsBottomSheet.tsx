@@ -62,7 +62,7 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
         {/* <BottomSheetScrollView> */}
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{flex: 1}}
+          style={styles.commentsBottomSheet_avoiding}
           keyboardVerticalOffset={80} // Adjust depending on header height
         >
           <View style={styles.commentsBottomSheet__mainCont}>
@@ -72,7 +72,7 @@ const commentsBottomSheet = forwardRef<Ref, CommentsBottomSheetPropType>(
                 return <CommentCard comment={item} />;
               }}
               keyExtractor={(item: CommentType) => item.entity_id.toString()}
-              contentContainerStyle={{paddingBottom: 60}}
+              contentContainerStyle={styles.commentsBottomSheet__flatlist}
             />
             <CustomInput
               icon2="send-outline"
@@ -101,11 +101,17 @@ const styles = StyleSheet.create({
   commentsBottomSheet__handle: {
     backgroundColor: Colors.secondaryBackground,
   },
+  commentsBottomSheet_avoiding: {
+    flex: 1,
+  },
   commentsBottomSheet__mainCont: {
     marginTop: 30,
     marginBottom: 10,
     width: '90%',
     alignSelf: 'center',
+  },
+  commentsBottomSheet__flatlist: {
+    paddingBottom: 60,
   },
   mainContStyles: {
     position: 'absolute',
