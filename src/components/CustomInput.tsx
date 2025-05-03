@@ -1,5 +1,5 @@
 import {StyleSheet, TextInput, View, Pressable} from 'react-native';
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import type {PropsWithChildren} from 'react';
 
 import IconsIon from 'react-native-vector-icons/Ionicons';
@@ -21,6 +21,14 @@ type CustomInputPropType = PropsWithChildren<{
 }>;
 
 const CustomInput = (props: CustomInputPropType) => {
+  const {setValue} = props;
+  const onTextChange = useCallback(
+    (text: string) => {
+      setValue(text); // or your actual handler
+    },
+    [setValue],
+  );
+
   return (
     <View style={[styles.customInput__mainCont, props.mainContStyles]}>
       {props.icon1 && (
@@ -30,8 +38,8 @@ const CustomInput = (props: CustomInputPropType) => {
       )}
       <TextInput
         style={styles.customInput__input}
-        onChangeText={val => props.setValue(val)}
-        value={props.value}
+        onChangeText={onTextChange}
+        defaultValue={props.value}
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
         secureTextEntry={props.password}
@@ -47,14 +55,13 @@ const CustomInput = (props: CustomInputPropType) => {
   );
 };
 
-export default CustomInput;
+export default memo(CustomInput);
 
 const styles = StyleSheet.create({
   customInput__mainCont: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
     height: 50,
     padding: 10,
     backgroundColor: Colors.secondaryBackground,
@@ -62,7 +69,7 @@ const styles = StyleSheet.create({
   },
   customInput__input: {
     height: 45,
-    width: '80%',
+    flex: 1,
     color: Colors.primaryText,
   },
 });
