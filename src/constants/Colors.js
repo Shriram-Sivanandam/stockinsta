@@ -5,6 +5,7 @@ const Colors = {
   secondaryBackground: '#4b4c4d',
   redColor: '#bd0413',
   greenColor: '#39a62b',
+  borderColor: '#4b4c4d',
 };
 
 export default Colors;

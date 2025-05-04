@@ -88,7 +88,7 @@ const PostCard = ({
             />
             <CustomTextReg
               style={styles.postCard__userName}
-              onPress={() => navigation.navigate('Explore')}>
+              onPress={() => navigation.navigate('Profile')}>
               {postCardProps.username}
             </CustomTextReg>
           </View>
