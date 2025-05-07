@@ -5,7 +5,6 @@ import Icons from 'react-native-vector-icons/Entypo';
 import IconsComm from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconsIon from 'react-native-vector-icons/Ionicons';
 
-import {NavigationProp} from '@react-navigation/native';
 import {PostCardPropType, CommentType} from '../Types/Types';
 
 import Colors from '../constants/Colors';
@@ -16,11 +15,9 @@ import CommentsBottomSheet from './CommentsBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 
 const PostCard = ({
-  navigation,
   postCardProps,
   setPosts,
 }: {
-  navigation: NavigationProp<any>;
   postCardProps: PostCardPropType;
   setPosts: React.Dispatch<React.SetStateAction<any>>;
 }) => {
@@ -86,9 +83,7 @@ const PostCard = ({
               source={{uri: postCardProps.dp_path}}
               style={styles.postCard__logo}
             />
-            <CustomTextReg
-              style={styles.postCard__userName}
-              onPress={() => navigation.navigate('Profile')}>
+            <CustomTextReg style={styles.postCard__userName}>
               {postCardProps.username}
             </CustomTextReg>
           </View>

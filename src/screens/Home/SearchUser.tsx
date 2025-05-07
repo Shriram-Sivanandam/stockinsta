@@ -5,7 +5,6 @@ import axios from 'axios';
 import SearchStockCard from '../../components/SearchStockCard';
 import {BASE_URL} from '../../frontend-api-service/Base';
 import CustomInput from '../../components/CustomInput';
-import {RouteProp} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 
 type SearchStockPropType = {
@@ -16,9 +15,7 @@ type SearchStockPropType = {
   exchange: string;
 };
 
-type SearchStockRouteProp = RouteProp<{params: {pageNo: number}}, 'params'>;
-
-const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
+const SearchUser = () => {
   const [searchData, setSearchData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [search, setSearch] = useState('');
@@ -86,18 +83,16 @@ const SearchStock = ({route}: {route: SearchStockRouteProp}) => {
             exchange={item.exchange}
             tradingsymbol={item.tradingsymbol}
             name={item.name}
-            page={route.params.pageNo}
+            page={1}
           />
         )}
-        keyExtractor={(item: SearchStockPropType) =>
-          `${item.instrument_token}${item.exchange_token}`
-        }
+        keyExtractor={(item: SearchStockPropType) => item.instrument_token}
       />
     </View>
   );
 };
 
-export default SearchStock;
+export default SearchUser;
 
 const styles = StyleSheet.create({
   SearchStock__mainCont: {

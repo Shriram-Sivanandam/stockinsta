@@ -16,9 +16,8 @@ import {selectUserID} from '../redux/userSlice';
 import Toast from 'react-native-toast-message';
 import {PostCardPropType} from '../Types/Types';
 import PostCard from '../components/PostCard';
-import {NavigationProp} from '@react-navigation/native';
 
-const ProfilePage = ({navigation}: {navigation: NavigationProp<any>}) => {
+const ProfilePage = () => {
   const userid = useSelector(selectUserID);
   const [posts, setPosts] = useState<PostCardPropType[]>([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -123,11 +122,7 @@ const ProfilePage = ({navigation}: {navigation: NavigationProp<any>}) => {
         }
         data={posts}
         renderItem={({item}: {item: PostCardPropType}) => (
-          <PostCard
-            navigation={navigation}
-            postCardProps={item}
-            setPosts={setPosts}
-          />
+          <PostCard postCardProps={item} setPosts={setPosts} />
         )}
         keyExtractor={(item: PostCardPropType) => item.entity_id.toString()}
       />

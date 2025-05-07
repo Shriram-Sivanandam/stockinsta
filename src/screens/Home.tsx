@@ -1,78 +1,21 @@
-import {View, FlatList, RefreshControl, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import PostCard from '../components/PostCard';
+import React from 'react';
 
-import {NavigationProp} from '@react-navigation/native';
-import {PostCardPropType} from '../Types/Types';
-import axios from 'axios';
-import {BASE_URL} from '../frontend-api-service/Base/index';
-import {useSelector} from 'react-redux';
-import {selectUserID} from '../redux/userSlice';
-import Toast from 'react-native-toast-message';
+import {createStackNavigator} from '@react-navigation/stack';
+import {HomeRootStackParamList} from '../Types/Types';
 
-const Home = ({navigation}: {navigation: NavigationProp<any>}) => {
-  const [refreshing, setRefreshing] = useState(false);
-  const userid = useSelector(selectUserID);
-  const [posts, setPosts] = useState([]);
+import Feed from './Home/Feed';
+import SearchUser from './Home/SearchUser';
 
-  const onRefresh = () => {
-    setRefreshing(true);
-    axios
-      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
-      .then(res => {
-        setPosts(res.data.posts);
-        setRefreshing(false);
-      })
-      .catch(err => {
-        Toast.show({
-          type: 'error',
-          text1: 'Error fetching posts',
-          text2: err,
-        });
-        setRefreshing(false);
-      });
-  };
+const Stack = createStackNavigator<HomeRootStackParamList>();
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
-      .then(res => {
-        setPosts(res.data.posts);
-      })
-      .catch(err => {
-        Toast.show({
-          type: 'error',
-          text1: 'Error fetching posts',
-          text2: err,
-        });
-      });
-  }, [userid]);
-
+const Home = () => {
   return (
-    <View style={styles.home__mainCont}>
-      <FlatList
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        data={posts}
-        renderItem={({item}: {item: PostCardPropType}) => (
-          <PostCard
-            navigation={navigation}
-            postCardProps={item}
-            setPosts={setPosts}
-          />
-        )}
-        keyExtractor={(item: PostCardPropType) => item.entity_id.toString()}
-      />
-    </View>
+    <Stack.Navigator
+      screenOptions={{headerShown: false, animationTypeForReplace: 'pop'}}>
+      <Stack.Screen name="Feed" component={Feed} />
+      <Stack.Screen name="SearchUser" component={SearchUser} />
+    </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  home__mainCont: {
-    backgroundColor: 'black',
-    flex: 1,
-  },
-});
 
 export default Home;

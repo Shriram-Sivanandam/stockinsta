@@ -46,7 +46,7 @@ const Main = () => {
       }}>
       <Tab.Screen
         name="Home"
-        children={({navigation}) => <Home navigation={navigation} />}
+        component={Home}
         options={{
           tabBarIcon: tabInfo => HomeTabBarIcon(tabInfo.focused),
         }}
@@ -60,7 +60,7 @@ const Main = () => {
       />
       <Tab.Screen
         name="Profile"
-        children={({navigation}) => <ProfilePage navigation={navigation} />}
+        component={ProfilePage}
         options={{
           tabBarIcon: tabInfo => ProfileTabBarIcon(tabInfo.focused),
         }}

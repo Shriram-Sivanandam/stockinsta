@@ -14,6 +14,11 @@ export type ExploreRootStackParamList = {
   Search: {pageNo: number};
 };
 
+export type HomeRootStackParamList = {
+  Feed: undefined;
+  SearchUser: undefined;
+};
+
 export type PostCardPropType = {
   entity_id: number;
   userid: number;
