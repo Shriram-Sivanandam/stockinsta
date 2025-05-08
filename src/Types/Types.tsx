@@ -47,3 +47,9 @@ export type CommentsBottomSheetPropType = {
   setComments: (comments: CommentType[]) => void;
   entity_id: number;
 };
+
+export type UserCardPropType = {
+  dp_path: string;
+  username: string;
+  id: number;
+};

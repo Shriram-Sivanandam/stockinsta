@@ -2,18 +2,11 @@ import {StyleSheet, View, FlatList, RefreshControl} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import SearchStockCard from '../../components/SearchStockCard';
+import SearchUserCard from '../../components/SearchUserCard';
 import {BASE_URL} from '../../frontend-api-service/Base';
 import CustomInput from '../../components/CustomInput';
 import Toast from 'react-native-toast-message';
-
-type SearchStockPropType = {
-  instrument_token: string;
-  exchange_token: number;
-  tradingsymbol: string;
-  name: string;
-  exchange: string;
-};
+import {UserCardPropType} from '../../Types/Types';
 
 const SearchUser = () => {
   const [searchData, setSearchData] = useState([]);
@@ -28,14 +21,14 @@ const SearchUser = () => {
       return;
     } else {
       axios
-        .get(`${BASE_URL}/explore/searchInstrument?searchParam=${search}`)
+        .get(`${BASE_URL}/users/searchUser?searchParam=${search}`)
         .then(res => {
           setSearchData(res.data);
         })
         .catch(err => {
           Toast.show({
             type: 'error',
-            text1: 'Cannot find insturment',
+            text1: 'Cannot find user',
             text2: err,
           });
         });
@@ -45,7 +38,7 @@ const SearchUser = () => {
   const onRefresh = () => {
     setRefreshing(true);
     axios
-      .get(`${BASE_URL}/explore/searchInstrument?searchParam=${search}`)
+      .get(`${BASE_URL}/users/searchUser?searchParam=${search}`)
       .then(res => {
         setSearchData(res.data);
         setRefreshing(false);
@@ -54,7 +47,7 @@ const SearchUser = () => {
         setRefreshing(false);
         Toast.show({
           type: 'error',
-          text1: 'Cannot find insturment',
+          text1: 'Cannot find user',
           text2: err,
         });
       });
@@ -78,15 +71,14 @@ const SearchUser = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         data={searchData}
-        renderItem={({item}: {item: SearchStockPropType}) => (
-          <SearchStockCard
-            exchange={item.exchange}
-            tradingsymbol={item.tradingsymbol}
-            name={item.name}
-            page={1}
+        renderItem={({item}: {item: UserCardPropType}) => (
+          <SearchUserCard
+            dp_path={item.dp_path}
+            username={item.username}
+            id={item.id}
           />
         )}
-        keyExtractor={(item: SearchStockPropType) => item.instrument_token}
+        keyExtractor={(item: UserCardPropType) => `${item.id}`}
       />
     </View>
   );
