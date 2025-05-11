@@ -17,6 +17,7 @@ export type ExploreRootStackParamList = {
 export type HomeRootStackParamList = {
   Feed: undefined;
   SearchUser: undefined;
+  ProfilePage: {userid: number};
 };
 
 export type PostCardPropType = {
@@ -52,4 +53,14 @@ export type UserCardPropType = {
   dp_path: string;
   username: string;
   id: number;
+};
+
+export type ProfilePropType = {
+  username: string;
+  dp_path: string;
+  followers: number;
+  following: number;
+  posts: number;
+  isFollowing: boolean;
+  isMe: boolean;
 };

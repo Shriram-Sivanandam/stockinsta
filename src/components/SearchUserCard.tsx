@@ -1,12 +1,20 @@
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, Pressable, Image} from 'react-native';
 import React from 'react';
 import {CustomTextReg} from './CustomText';
 import {UserCardPropType} from '../Types/Types';
 import Colors from '../constants/Colors';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationProp} from '@react-navigation/native';
+import {HomeRootStackParamList} from '../Types/Types';
 
 const SearchUserCard = (userCardProps: UserCardPropType) => {
+  const navigation = useNavigation<NavigationProp<HomeRootStackParamList>>();
   return (
-    <View style={styles.searchUserCard__logoContainer}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate('ProfilePage', {userid: userCardProps.id})
+      }
+      style={styles.searchUserCard__logoContainer}>
       <Image
         source={{uri: userCardProps.dp_path}}
         style={styles.searchUserCard__logo}
@@ -14,7 +22,7 @@ const SearchUserCard = (userCardProps: UserCardPropType) => {
       <CustomTextReg style={styles.searchUserCard__userName}>
         {userCardProps.username}
       </CustomTextReg>
-    </View>
+    </Pressable>
   );
 };
 

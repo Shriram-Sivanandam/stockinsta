@@ -5,6 +5,7 @@ import {HomeRootStackParamList} from '../Types/Types';
 
 import Feed from './Home/Feed';
 import SearchUser from './Home/SearchUser';
+import ProfilePage from './ProfilePage';
 
 const Stack = createStackNavigator<HomeRootStackParamList>();
 
@@ -14,6 +15,7 @@ const Home = () => {
       screenOptions={{headerShown: false, animationTypeForReplace: 'pop'}}>
       <Stack.Screen name="Feed" component={Feed} />
       <Stack.Screen name="SearchUser" component={SearchUser} />
+      <Stack.Screen name="ProfilePage" component={ProfilePage} />
     </Stack.Navigator>
   );
 };

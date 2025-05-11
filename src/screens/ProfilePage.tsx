@@ -6,6 +6,7 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import Colors from '../constants/Colors';
 import {CustomTextReg, CustomTextLight} from '../components/CustomText';
@@ -14,27 +15,38 @@ import {BASE_URL} from '../frontend-api-service/Base';
 import {useSelector} from 'react-redux';
 import {selectUserID} from '../redux/userSlice';
 import Toast from 'react-native-toast-message';
-import {PostCardPropType} from '../Types/Types';
+import {PostCardPropType, ProfilePropType} from '../Types/Types';
 import PostCard from '../components/PostCard';
+import {HomeRootStackParamList} from '../Types/Types';
 
 const ProfilePage = () => {
-  const userid = useSelector(selectUserID);
+  const currentUserid = useSelector(selectUserID);
   const [posts, setPosts] = useState<PostCardPropType[]>([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
-  const temp = {
-    username: 'John Doe',
-    dp_path: 'https://reactjs.org/logo-og.png',
-    bio: 'This is a sample bio',
-    followers: 100,
-    following: 50,
-    posts: 10,
-    isFollowing: false,
-    isMe: false,
-  };
+  const [profileProps, setProfileProps] = useState<ProfilePropType | null>(
+    null,
+  );
+
+  const route = useRoute<RouteProp<HomeRootStackParamList, 'ProfilePage'>>();
+  const {userid} = route?.params ? route.params : {userid: currentUserid};
 
   const onRefresh = () => {
     setRefreshing(true);
+    axios
+      .get(
+        `${BASE_URL}/users/getProfile?userid=${userid}&currentUserid=${currentUserid}`,
+      )
+      .then(res => {
+        console.log('hello world', res.data);
+        setProfileProps(res.data);
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching profile',
+          text2: err,
+        });
+      });
     axios
       .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
       .then(res => {
@@ -53,6 +65,21 @@ const ProfilePage = () => {
 
   useEffect(() => {
     axios
+      .get(
+        `${BASE_URL}/users/getProfile?userid=${userid}&currentUserid=${currentUserid}`,
+      )
+      .then(res => {
+        setProfileProps(res.data);
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error fetching profile',
+          text2: err,
+        });
+      });
+
+    axios
       .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
       .then(res => {
         setPosts(res.data.posts);
@@ -64,10 +91,12 @@ const ProfilePage = () => {
           text2: err,
         });
       });
-  }, [userid]);
+  }, [userid, currentUserid]);
 
   const toggleFollow = () => {
-    setIsFollowing(prev => !prev);
+    setProfileProps(prev =>
+      prev ? {...prev, isFollowing: !prev.isFollowing} : null,
+    );
   };
 
   return (
@@ -75,20 +104,20 @@ const ProfilePage = () => {
       <View style={styles.profilePage__mainCont}>
         <View style={styles.profilePage__header}>
           <Image
-            source={{uri: temp.dp_path}}
+            source={{uri: profileProps?.dp_path}}
             style={styles.profilePage__avatar}
           />
           <View style={styles.profilePage__stats}>
             <View style={styles.profilePage__statItem}>
-              <CustomTextReg>{temp.posts}</CustomTextReg>
+              <CustomTextReg>{profileProps?.posts}</CustomTextReg>
               <CustomTextLight>Posts</CustomTextLight>
             </View>
             <View style={styles.profilePage__statItem}>
-              <CustomTextReg>{temp.followers}</CustomTextReg>
+              <CustomTextReg>{profileProps?.followers}</CustomTextReg>
               <CustomTextLight>Followers</CustomTextLight>
             </View>
             <View style={styles.profilePage__statItem}>
-              <CustomTextReg>{temp.following}</CustomTextReg>
+              <CustomTextReg>{profileProps?.following}</CustomTextReg>
               <CustomTextLight>Following</CustomTextLight>
             </View>
           </View>
@@ -96,22 +125,26 @@ const ProfilePage = () => {
 
         <View style={styles.profilePage__info}>
           <CustomTextReg style={styles.profilePage__username}>
-            {temp.username}
+            {profileProps?.username}
           </CustomTextReg>
-          <CustomTextReg>{temp.bio}</CustomTextReg>
+          <CustomTextReg>fake bio</CustomTextReg>
         </View>
 
         <View style={styles.profilePage__actions}>
           <TouchableOpacity
             style={[
               styles.profilePage__actionButton,
-              isFollowing
+              profileProps?.isFollowing
                 ? {backgroundColor: Colors.redColor}
                 : {backgroundColor: Colors.greenColor},
             ]}
-            onPress={temp.isMe ? () => {} : toggleFollow}>
+            onPress={profileProps?.isMe ? () => {} : toggleFollow}>
             <CustomTextReg style={{color: Colors.primaryText}}>
-              {temp.isMe ? 'Edit Profile' : isFollowing ? 'Unfollow' : 'Follow'}
+              {profileProps?.isMe
+                ? 'Edit Profile'
+                : profileProps?.isFollowing
+                ? 'Unfollow'
+                : 'Follow'}
             </CustomTextReg>
           </TouchableOpacity>
         </View>
