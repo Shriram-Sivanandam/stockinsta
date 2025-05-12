@@ -48,7 +48,9 @@ const ProfilePage = () => {
         });
       });
     axios
-      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
+      .get(
+        `${BASE_URL}/posts/getposts?userid=${userid}&currentUserid=${currentUserid}`,
+      )
       .then(res => {
         setPosts(res.data.posts);
         setRefreshing(false);
@@ -80,7 +82,9 @@ const ProfilePage = () => {
       });
 
     axios
-      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
+      .get(
+        `${BASE_URL}/posts/getposts?userid=${userid}&currentUserid=${currentUserid}`,
+      )
       .then(res => {
         setPosts(res.data.posts);
       })
@@ -94,9 +98,33 @@ const ProfilePage = () => {
   }, [userid, currentUserid]);
 
   const toggleFollow = () => {
-    setProfileProps(prev =>
-      prev ? {...prev, isFollowing: !prev.isFollowing} : null,
-    );
+    if (!profileProps?.isFollowing) {
+      axios
+        .post(`${BASE_URL}/users/follow`, {
+          followerid: currentUserid,
+          followingid: userid,
+        })
+        .then(() => {
+          setProfileProps(prev => (prev ? {...prev, isFollowing: true} : null));
+        })
+        .catch(err => {
+          console.log('Error following user', err);
+        });
+    } else if (profileProps?.isFollowing) {
+      axios
+        .post(`${BASE_URL}/users/unfollow`, {
+          followerid: currentUserid,
+          followingid: userid,
+        })
+        .then(() => {
+          setProfileProps(prev =>
+            prev ? {...prev, isFollowing: false} : null,
+          );
+        })
+        .catch(err => {
+          console.log('Error unfollowing user', err);
+        });
+    }
   };
 
   return (

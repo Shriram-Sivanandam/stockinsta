@@ -13,6 +13,8 @@ import axios from 'axios';
 import {BASE_URL} from '../frontend-api-service/Base';
 import CommentsBottomSheet from './CommentsBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {useSelector} from 'react-redux';
+import {selectUserID} from '../redux/userSlice';
 
 const PostCard = ({
   postCardProps,
@@ -23,6 +25,7 @@ const PostCard = ({
 }) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [comments, setComments] = useState<CommentType[]>([]);
+  const userid = useSelector(selectUserID);
 
   const onCommentPress = () => {
     axios
@@ -38,7 +41,7 @@ const PostCard = ({
 
   const onLikePress = () => {
     const likeData = {
-      userid: postCardProps.userid,
+      userid: userid,
       entity_id: postCardProps.entity_id,
     };
     if (postCardProps.isLiked) {

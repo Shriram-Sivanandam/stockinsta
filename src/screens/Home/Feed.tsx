@@ -27,7 +27,7 @@ const Feed = () => {
   const onRefresh = () => {
     setRefreshing(true);
     axios
-      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
+      .get(`${BASE_URL}/posts/getFeed?userid=${userid}`)
       .then(res => {
         setPosts(res.data.posts);
         setRefreshing(false);
@@ -44,7 +44,7 @@ const Feed = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/posts/getposts?userid=${userid}`)
+      .get(`${BASE_URL}/posts/getFeed?userid=${userid}`)
       .then(res => {
         setPosts(res.data.posts);
       })
