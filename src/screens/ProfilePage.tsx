@@ -18,6 +18,14 @@ import Toast from 'react-native-toast-message';
 import {PostCardPropType, ProfilePropType} from '../Types/Types';
 import PostCard from '../components/PostCard';
 import {HomeRootStackParamList} from '../Types/Types';
+import {useDispatch} from 'react-redux';
+import {setUserID} from '../redux/userSlice';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import {
+  AuthRootStackParamList,
+  ProfileRootStackParamList,
+} from '../Types/Types';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
 
 const ProfilePage = () => {
   const currentUserid = useSelector(selectUserID);
@@ -29,6 +37,12 @@ const ProfilePage = () => {
 
   const route = useRoute<RouteProp<HomeRootStackParamList, 'ProfilePage'>>();
   const {userid} = route?.params ? route.params : {userid: currentUserid};
+
+  const dispatch = useDispatch();
+  const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
+
+  const profileNavigation =
+    useNavigation<NavigationProp<ProfileRootStackParamList>>();
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -127,6 +141,28 @@ const ProfilePage = () => {
     }
   };
 
+  const handleLogout = () => {
+    EncryptedStorage.removeItem('user_session')
+      .then(() => {
+        dispatch(setUserID(''));
+        console.log('done');
+        navigation.navigate('Login');
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Could not log out',
+          text2: err,
+        });
+        console.log('Error logging out', err);
+      });
+  };
+
+  const handleAddPost = () => {
+    console.log('asdf');
+    profileNavigation.navigate('CreatePost');
+  };
+
   return (
     <View style={styles.profilePage__background}>
       <View style={styles.profilePage__mainCont}>
@@ -166,16 +202,25 @@ const ProfilePage = () => {
                 ? {backgroundColor: Colors.redColor}
                 : {backgroundColor: Colors.greenColor},
             ]}
-            onPress={profileProps?.isMe ? () => {} : toggleFollow}>
+            onPress={profileProps?.isMe ? handleAddPost : toggleFollow}>
             <CustomTextReg style={{color: Colors.primaryText}}>
               {profileProps?.isMe
-                ? 'Edit Profile'
+                ? 'Add Post'
                 : profileProps?.isFollowing
                 ? 'Unfollow'
                 : 'Follow'}
             </CustomTextReg>
           </TouchableOpacity>
         </View>
+        {profileProps?.isMe && (
+          <TouchableOpacity
+            style={styles.profilePage__actionButton}
+            onPress={handleLogout}>
+            <CustomTextReg style={{color: Colors.primaryText}}>
+              Logout
+            </CustomTextReg>
+          </TouchableOpacity>
+        )}
       </View>
       <FlatList
         refreshControl={

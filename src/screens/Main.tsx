@@ -5,7 +5,7 @@ import Home from './Home';
 import Explore from './Explore';
 //import Profile from './Profile';
 //import CreatePost from './CreatePost';
-import ProfilePage from './ProfilePage';
+import Profile from './Profile';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IconsSimple from 'react-native-vector-icons/SimpleLineIcons';
 import IconsEntypo from 'react-native-vector-icons/Entypo';
@@ -60,7 +60,7 @@ const Main = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfilePage}
+        component={Profile}
         options={{
           tabBarIcon: tabInfo => ProfileTabBarIcon(tabInfo.focused),
         }}

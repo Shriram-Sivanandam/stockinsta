@@ -20,6 +20,11 @@ export type HomeRootStackParamList = {
   ProfilePage: {userid: number};
 };
 
+export type ProfileRootStackParamList = {
+  ProfilePage: {userid: number};
+  CreatePost: undefined;
+};
+
 export type PostCardPropType = {
   entity_id: number;
   userid: number;

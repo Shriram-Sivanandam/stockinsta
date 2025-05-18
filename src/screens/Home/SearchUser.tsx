@@ -59,7 +59,7 @@ const SearchUser = () => {
         <CustomInput
           icon1="search-outline"
           icon2="filter-outline"
-          placeholder="Search and Add Instruments"
+          placeholder="Search Users"
           value={search}
           setValue={setSearch}
           keyboardType="default"

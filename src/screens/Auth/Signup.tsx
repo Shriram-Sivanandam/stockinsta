@@ -12,12 +12,21 @@ import Toast from 'react-native-toast-message';
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState('');
 
   const navigation = useNavigation();
 
   const handleSignUp = () => {
+    if (password !== confirmPassword) {
+      Toast.show({
+        type: 'error',
+        text1: 'Passwords do not match',
+      });
+      return;
+    }
     axios
-      .post(`${BASE_URL}/users/registerUser`, {email, password})
+      .post(`${BASE_URL}/users/registerUser`, {email, password, username})
       .then(() => {
         navigation.dispatch(StackActions.push('OTPVerification'));
       })
@@ -49,6 +58,16 @@ const Signup = () => {
             />
           </View>
           <View style={styles.login__input}>
+            <CustomTextReg>Username</CustomTextReg>
+            <CustomInput
+              icon1="mail-outline"
+              placeholder="Username"
+              value={username}
+              setValue={setUsername}
+              keyboardType="default"
+            />
+          </View>
+          <View style={styles.login__input}>
             <CustomTextReg>Password</CustomTextReg>
             <CustomInput
               icon1="lock-closed-outline"
@@ -65,8 +84,8 @@ const Signup = () => {
               icon1="lock-closed-outline"
               placeholder="Re-enter Password"
               password={true}
-              value={password}
-              setValue={setPassword}
+              value={confirmPassword}
+              setValue={setConfirmPassword}
               keyboardType="default"
             />
           </View>
