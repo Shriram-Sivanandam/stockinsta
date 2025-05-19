@@ -68,6 +68,8 @@ const ProfilePage = () => {
       .then(res => {
         setPosts(res.data.posts);
         setRefreshing(false);
+
+        console.log(res.data.posts);
       })
       .catch(err => {
         Toast.show({

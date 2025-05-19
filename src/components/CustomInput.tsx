@@ -71,5 +71,6 @@ const styles = StyleSheet.create({
     height: 45,
     flex: 1,
     color: Colors.primaryText,
+    paddingLeft: 10,
   },
 });

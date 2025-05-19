@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 
 import {launchImageLibrary} from 'react-native-image-picker';
 import {CustomTextReg} from '../components/CustomText';
+import CustomInput from '../components/CustomInput';
 import Icons from 'react-native-vector-icons/Feather';
 import Colors from '../constants/Colors';
 import axios from 'axios';
@@ -13,7 +14,7 @@ import {selectUserID} from '../redux/userSlice';
 const CreatePost = () => {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const userid = useSelector(selectUserID);
-  const caption = 'test caption';
+  const [caption, setCaption] = useState<string>('');
 
   const selectImage = () => {
     launchImageLibrary({mediaType: 'photo'}, response => {
@@ -69,7 +70,16 @@ const CreatePost = () => {
         ) : (
           <View style={styles.createPost__imageCont} />
         )}
+
         <View style={styles.createPost__buttonCont}>
+          <CustomInput
+            icon1="receipt-outline"
+            placeholder="Caption"
+            value={caption}
+            setValue={setCaption}
+            keyboardType="default"
+            autoFocus={false}
+          />
           <Pressable style={styles.createPost__button} onPress={selectImage}>
             <CustomTextReg>Pick Image</CustomTextReg>
           </Pressable>
