@@ -15,6 +15,7 @@ import CommentsBottomSheet from './CommentsBottomSheet';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {useSelector} from 'react-redux';
 import {selectUserID} from '../redux/userSlice';
+import PostsDeliveryCard from '../components/PostsDeliveryCard';
 
 const PostCard = ({
   postCardProps,
@@ -133,6 +134,7 @@ const PostCard = ({
             <IconsIon name="notifications-outline" size={28} color="white" />
           )}
         </View>
+        <PostsDeliveryCard />
         <CustomTextReg style={styles.postCard__desc}>
           {postCardProps.username} - {postCardProps.caption}
         </CustomTextReg>
@@ -207,7 +209,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     width: '95%',
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 30,
   },
 });
 
