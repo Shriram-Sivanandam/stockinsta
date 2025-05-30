@@ -21,10 +21,7 @@ import {HomeRootStackParamList} from '../Types/Types';
 import {useDispatch} from 'react-redux';
 import {setUserID} from '../redux/userSlice';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import {
-  AuthRootStackParamList,
-  ProfileRootStackParamList,
-} from '../Types/Types';
+import {ProfileRootStackParamList} from '../Types/Types';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
 
 const ProfilePage = () => {
@@ -39,7 +36,6 @@ const ProfilePage = () => {
   const {userid} = route?.params ? route.params : {userid: currentUserid};
 
   const dispatch = useDispatch();
-  const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
 
   const profileNavigation =
     useNavigation<NavigationProp<ProfileRootStackParamList>>();
@@ -147,8 +143,6 @@ const ProfilePage = () => {
     EncryptedStorage.removeItem('user_session')
       .then(() => {
         dispatch(setUserID(''));
-        console.log('done');
-        navigation.navigate('Login');
       })
       .catch(err => {
         Toast.show({

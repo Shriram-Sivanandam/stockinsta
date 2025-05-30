@@ -7,6 +7,8 @@ import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import {useDispatch} from 'react-redux';
+import {setUserID} from '../../redux/userSlice';
 
 import {
   useNavigation,
@@ -20,6 +22,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   axios.defaults.withCredentials = true;
+  const dispatch = useDispatch();
 
   const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
 
@@ -32,7 +35,7 @@ const Login = () => {
       }),
     )
       .then(() => {
-        navigation.navigate('Home');
+        dispatch(setUserID(userid));
       })
       .catch(err => {
         Toast.show({

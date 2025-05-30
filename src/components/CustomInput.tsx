@@ -45,6 +45,7 @@ const CustomInput = (props: CustomInputPropType) => {
         secureTextEntry={props.password}
         editable={props.editable}
         autoFocus={props.autoFocus}
+        autoCapitalize="none"
       />
       {props.icon2 && (
         <Pressable onPress={props.onPressIcon2}>

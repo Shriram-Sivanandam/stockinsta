@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
@@ -11,15 +11,19 @@ import {useDispatch} from 'react-redux';
 import {setUserID} from './src/redux/userSlice';
 import Toast from 'react-native-toast-message';
 import Colors from './src/constants/Colors';
+import {useSelector} from 'react-redux';
+import {selectUserID} from './src/redux/userSlice';
 
 function App(): React.JSX.Element {
-  const [user, setUser] = useState('');
   const dispatch = useDispatch();
+  const userID = useSelector(selectUserID);
 
   useEffect(() => {
+    if (userID !== null) {
+      return;
+    }
     EncryptedStorage.getItem('user_session')
       .then(res => {
-        setUser(res === null ? '' : JSON.parse(res).token);
         dispatch(setUserID(res === null ? '' : JSON.parse(res).userid));
       })
       .catch(err => {
@@ -29,14 +33,14 @@ function App(): React.JSX.Element {
           text2: err,
         });
       });
-  }, [dispatch]);
+  }, [dispatch, userID]);
 
   return (
     <GestureHandlerRootView>
       <BottomSheetModalProvider>
         <SafeAreaView style={styles.app__mainContainer}>
           <NavigationContainer>
-            {user === '' ? <Auth /> : <Main />}
+            {userID === '' ? <Auth /> : <Main />}
           </NavigationContainer>
         </SafeAreaView>
       </BottomSheetModalProvider>
