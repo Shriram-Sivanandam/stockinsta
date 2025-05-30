@@ -10,6 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IconsSimple from 'react-native-vector-icons/SimpleLineIcons';
 import IconsEntypo from 'react-native-vector-icons/Entypo';
 import IconsIon from 'react-native-vector-icons/Ionicons';
+import Colors from '../constants/Colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -73,9 +74,9 @@ export default Main;
 
 const styles = StyleSheet.create({
   app__tabBar: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.background,
     borderTopWidth: 1,
-    borderColor: '#4b4c4d',
+    borderColor: Colors.borderColor,
   },
   app__labelStyle: {
     color: 'white',

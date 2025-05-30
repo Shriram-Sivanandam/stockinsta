@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {CustomTextReg} from '../components/CustomText';
 import CustomInput from '../components/CustomInput';
-import Icons from 'react-native-vector-icons/Feather';
+//import Icons from 'react-native-vector-icons/Feather';
 import Colors from '../constants/Colors';
 import axios from 'axios';
 import {BASE_URL} from '../frontend-api-service/Base';
@@ -61,7 +61,7 @@ const CreatePost = () => {
   return (
     <View style={styles.createPost__mainCont}>
       <View style={styles.createPost__titleCont}>
-        <Icons name="x" size={25} color="white" />
+        {/* <Icons name="x" size={25} color="white" /> */}
         <CustomTextReg style={styles.cretePost__title}>New Post</CustomTextReg>
       </View>
       <View style={styles.createPost__uploadCont}>
@@ -99,7 +99,7 @@ export default CreatePost;
 
 const styles = StyleSheet.create({
   createPost__mainCont: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.background,
     height: '100%',
     width: '100%',
     display: 'flex',

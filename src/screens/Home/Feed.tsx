@@ -16,6 +16,7 @@ import {selectUserID} from '../../redux/userSlice';
 import Toast from 'react-native-toast-message';
 import CustomInput from '../../components/CustomInput';
 import {useNavigation, StackActions} from '@react-navigation/native';
+import Colors from '../../constants/Colors';
 
 const Feed = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -88,7 +89,7 @@ const Feed = () => {
 
 const styles = StyleSheet.create({
   home__mainCont: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.background,
     flex: 1,
   },
   home__searchCont: {

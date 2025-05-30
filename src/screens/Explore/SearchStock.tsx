@@ -7,6 +7,7 @@ import {BASE_URL} from '../../frontend-api-service/Base';
 import CustomInput from '../../components/CustomInput';
 import {RouteProp} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import Colors from '../../constants/Colors';
 
 type SearchStockPropType = {
   instrument_token: string;
@@ -101,7 +102,7 @@ export default SearchStock;
 
 const styles = StyleSheet.create({
   SearchStock__mainCont: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.background,
     flex: 1,
   },
   SearchStock__searchBar: {

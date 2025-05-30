@@ -10,6 +10,7 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 import {useDispatch} from 'react-redux';
 import {setUserID} from './src/redux/userSlice';
 import Toast from 'react-native-toast-message';
+import Colors from './src/constants/Colors';
 
 function App(): React.JSX.Element {
   const [user, setUser] = useState('');
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   app__mainContainer: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#000',
+    backgroundColor: Colors.background,
   },
 });
 

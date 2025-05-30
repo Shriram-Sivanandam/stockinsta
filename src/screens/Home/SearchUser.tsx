@@ -7,6 +7,7 @@ import {BASE_URL} from '../../frontend-api-service/Base';
 import CustomInput from '../../components/CustomInput';
 import Toast from 'react-native-toast-message';
 import {UserCardPropType} from '../../Types/Types';
+import Colors from '../../constants/Colors';
 
 const SearchUser = () => {
   const [searchData, setSearchData] = useState([]);
@@ -88,7 +89,7 @@ export default SearchUser;
 
 const styles = StyleSheet.create({
   SearchStock__mainCont: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.background,
     flex: 1,
   },
   SearchStock__searchBar: {
