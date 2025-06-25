@@ -6,7 +6,7 @@ export type AuthRootStackParamList = {
   Login: undefined;
   Signup: undefined;
   ForgotPassword: undefined;
-  OTPVerification: undefined;
+  OTPVerification: {email: string; username: string; password: string};
 };
 
 export type ExploreRootStackParamList = {

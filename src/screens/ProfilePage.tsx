@@ -208,15 +208,15 @@ const ProfilePage = () => {
             </CustomTextReg>
           </TouchableOpacity>
         </View>
-        {profileProps?.isMe && (
-          <TouchableOpacity
-            style={styles.profilePage__actionButton}
-            onPress={handleLogout}>
-            <CustomTextReg style={{color: Colors.primaryText}}>
-              Logout
-            </CustomTextReg>
-          </TouchableOpacity>
-        )}
+        {/* {profileProps?.isMe && ( */}
+        <TouchableOpacity
+          style={styles.profilePage__actionButton}
+          onPress={handleLogout}>
+          <CustomTextReg style={{color: Colors.primaryText}}>
+            Logout
+          </CustomTextReg>
+        </TouchableOpacity>
+        {/* )} */}
       </View>
       <FlatList
         refreshControl={

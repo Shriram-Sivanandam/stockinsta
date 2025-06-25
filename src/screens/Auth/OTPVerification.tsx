@@ -1,16 +1,78 @@
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
+import axios from 'axios';
 
 import {CustomTextReg} from '../../components/CustomText';
 import CustomInput from '../../components/CustomInput';
 import Colors from '../../constants/Colors';
-import {useNavigation, NavigationProp} from '@react-navigation/native';
+import {BASE_URL} from '../../frontend-api-service/Base/index';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import {useDispatch} from 'react-redux';
+import {setUserID} from '../../redux/userSlice';
+import Toast from 'react-native-toast-message';
+import {StackScreenProps} from '@react-navigation/stack';
 import {AuthRootStackParamList} from '../../Types/Types';
 
-const ForgotPassword = () => {
-  const [OTP, setOTP] = useState('');
+type Props = StackScreenProps<AuthRootStackParamList, 'OTPVerification'>;
 
-  const navigation = useNavigation<NavigationProp<AuthRootStackParamList>>();
+const OTPVerification = ({route}: Props) => {
+  const [otp, setOtp] = useState('');
+  const dispatch = useDispatch();
+  const {email, username, password} = route.params;
+
+  const storeUserSession = async (userid: string, token: string) => {
+    EncryptedStorage.setItem(
+      'user_session',
+      JSON.stringify({
+        userid: userid,
+        token: token,
+      }),
+    )
+      .then(() => {
+        dispatch(setUserID(userid));
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Error in storing user session',
+          text2: err,
+        });
+      });
+  };
+
+  const handleSignUp = () => {
+    if (otp.length !== 6) {
+      Toast.show({
+        type: 'error',
+        text1: 'Invalid OTP',
+      });
+      return;
+    }
+
+    axios
+      .post(`${BASE_URL}/users/verifyOTP`, {email, otp})
+      .then(() => {
+        axios
+          .post(`${BASE_URL}/users/registerUser`, {email, password, username})
+          .then(res => {
+            storeUserSession(res.data.id, 'token');
+          })
+          .catch(err => {
+            Toast.show({
+              type: 'error',
+              text1: 'User already exists',
+              text2: err,
+            });
+          });
+      })
+      .catch(err => {
+        Toast.show({
+          type: 'error',
+          text1: 'Invalid OTP',
+          text2: err,
+        });
+      });
+  };
 
   return (
     <View style={styles.login__mainCont}>
@@ -25,8 +87,8 @@ const ForgotPassword = () => {
             <CustomInput
               icon1="keypad-outline"
               placeholder="OTP"
-              value={OTP}
-              setValue={setOTP}
+              value={otp}
+              setValue={setOtp}
               keyboardType="number-pad"
             />
           </View>
@@ -34,7 +96,7 @@ const ForgotPassword = () => {
         <TouchableOpacity
           style={styles.login__button}
           activeOpacity={0.8}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => handleSignUp()}>
           <CustomTextReg>Confirm OTP</CustomTextReg>
         </TouchableOpacity>
       </View>
@@ -42,7 +104,7 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default OTPVerification;
 
 const styles = StyleSheet.create({
   login__mainCont: {

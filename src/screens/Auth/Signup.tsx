@@ -8,38 +8,14 @@ import Colors from '../../constants/Colors';
 import {BASE_URL} from '../../frontend-api-service/Base/index';
 import {useNavigation, StackActions} from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import {useDispatch} from 'react-redux';
-import {setUserID} from '../../redux/userSlice';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
-  const dispatch = useDispatch();
 
   const navigation = useNavigation();
-
-  const storeUserSession = async (userid: string, token: string) => {
-    EncryptedStorage.setItem(
-      'user_session',
-      JSON.stringify({
-        userid: userid,
-        token: token,
-      }),
-    )
-      .then(() => {
-        dispatch(setUserID(userid));
-      })
-      .catch(err => {
-        Toast.show({
-          type: 'error',
-          text1: 'Error in storing user session',
-          text2: err,
-        });
-      });
-  };
 
   const handleSignUp = () => {
     if (password !== confirmPassword) {
@@ -50,10 +26,15 @@ const Signup = () => {
       return;
     }
     axios
-      .post(`${BASE_URL}/users/registerUser`, {email, password, username})
-      .then(res => {
-        //navigation.dispatch(StackActions.push('OTPVerification'));
-        storeUserSession(res.data.id, 'token');
+      .post(`${BASE_URL}/users/sendOTP`, {email})
+      .then(() => {
+        navigation.dispatch(
+          StackActions.push('OTPVerification', {
+            email: email,
+            username: username,
+            password: password,
+          }),
+        );
       })
       .catch(err => {
         Toast.show({
